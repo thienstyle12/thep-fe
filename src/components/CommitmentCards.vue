@@ -26,12 +26,12 @@ const COMMITMENTS = [
 </script>
 
 <template>
-  <section class="py-16 px-6 bg-slate-950 text-white relative border-t border-slate-800">
+  <section class="py-16 px-6 bg-teal-950 text-white relative border-b border-teal-900">
     <div class="max-w-7xl mx-auto">
       <!-- Quote Header -->
-      <div class="text-center max-w-4xl mx-auto mb-14">
-        <span class="inline-flex items-center gap-2 bg-teal-500/20 text-teal-400 text-xs font-black uppercase px-4 py-1.5 rounded-full border border-teal-500/30 tracking-widest mb-4">
-          <HeartHandshake class="w-4 h-4 text-teal-400" /> VĂN HÓA VÀ CAM KẾT VIỆT TÍN
+      <div class="text-center max-w-4xl mx-auto mb-14 animate-fade-in-up">
+        <span class="inline-flex items-center gap-2 bg-teal-900/90 text-teal-300 text-xs font-black uppercase px-4 py-1.5 rounded-full border border-teal-700/60 tracking-widest mb-4 shadow-md">
+          <HeartHandshake class="w-4 h-4 text-yellow-400" /> VĂN HÓA VÀ CAM KẾT VIỆT TÍN
         </span>
         <h3 class="text-2xl md:text-4xl font-black italic tracking-tight text-white leading-snug">
           “Thép là sản phẩm — nhưng <span class="text-yellow-400 underline decoration-red-600 decoration-4">chữ Tín</span> mới là tài sản lớn nhất của chúng tôi.”
@@ -43,16 +43,17 @@ const COMMITMENTS = [
         <div 
           v-for="(c, idx) in COMMITMENTS" 
           :key="idx"
-          class="bg-slate-900/90 border border-slate-800 hover:border-teal-500/50 rounded-3xl p-6 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-teal-500/10 group"
+          class="bg-teal-900/50 border border-teal-800 hover:border-yellow-400 rounded-3xl p-6 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-teal-500/20 group animate-fade-in-up"
+          :style="{ animationDelay: `${idx * 150}ms` }"
         >
-          <div class="w-14 h-14 rounded-2xl bg-teal-900/50 border border-teal-700/50 text-teal-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-teal-600 group-hover:text-white transition duration-300">
-            <component :is="c.icon" class="w-7 h-7" />
+          <div class="w-14 h-14 rounded-2xl bg-teal-950 border border-teal-700/60 text-teal-300 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-teal-600 group-hover:text-white transition duration-300 shadow-lg">
+            <component :is="c.icon" class="w-7 h-7 text-yellow-400 group-hover:text-white transition" />
           </div>
 
           <h4 class="text-lg font-black text-white group-hover:text-yellow-400 transition mb-3">
             {{ c.title }}
           </h4>
-          <p class="text-xs text-slate-400 leading-relaxed font-medium">
+          <p class="text-xs text-teal-100/70 leading-relaxed font-medium">
             {{ c.desc }}
           </p>
         </div>

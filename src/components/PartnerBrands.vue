@@ -10,21 +10,21 @@ const BRANDS = [
 </script>
 
 <template>
-  <section class="py-16 px-6 bg-slate-950 text-white relative overflow-hidden">
+  <section class="py-16 px-6 bg-teal-950 text-white relative overflow-hidden border-b border-teal-900">
     <!-- Background Accents -->
-    <div class="absolute top-0 right-0 w-80 h-80 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 w-80 h-80 bg-yellow-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-0 right-0 w-80 h-80 bg-teal-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto relative z-10">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <span class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 text-xs font-black uppercase px-3.5 py-1.5 rounded-full border border-red-500/30 tracking-widest mb-3">
-          <Award class="w-4 h-4 text-red-500" /> THƯƠNG HIỆU THÉP HÀNG ĐẦU VIỆT NAM
+      <div class="text-center max-w-3xl mx-auto mb-12 animate-fade-in-up">
+        <span class="inline-flex items-center gap-2 bg-teal-900/90 text-teal-300 text-xs font-black uppercase px-4 py-1.5 rounded-full border border-teal-700/60 tracking-widest mb-3 shadow-md">
+          <Award class="w-4 h-4 text-yellow-400" /> THƯƠNG HIỆU THÉP HÀNG ĐẦU VIỆT NAM
         </span>
         <h3 class="text-3xl md:text-4xl font-black tracking-tight text-white leading-tight">
           ĐỐI TÁC CHÍNH THỨC CỦA CÁC TẬP ĐOÀN THÉP LỚN
         </h3>
-        <p class="text-slate-400 text-sm md:text-base mt-3">
+        <p class="text-teal-200/80 text-sm md:text-base mt-3">
           Thép Việt Tín tự hào là đại lý phân phối cấp 1 trực tiếp từ các nhà máy sản xuất thép uy tín hàng đầu, đầy đủ chứng chỉ CO/CQ và hóa đơn VAT.
         </p>
       </div>
@@ -34,11 +34,12 @@ const BRANDS = [
         <div 
           v-for="(b, idx) in BRANDS" 
           :key="idx"
-          class="group relative bg-slate-900/90 border border-slate-800 hover:border-red-500/50 rounded-3xl p-6 transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-600/10"
+          class="group relative bg-teal-900/50 border border-teal-800 hover:border-yellow-400 rounded-3xl p-6 transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-500/20 animate-fade-in-up"
+          :style="{ animationDelay: `${idx * 150}ms` }"
         >
-          <div class="h-40 rounded-2xl overflow-hidden mb-4 relative bg-slate-950 border border-slate-800">
+          <div class="h-40 rounded-2xl overflow-hidden mb-4 relative bg-teal-950 border border-teal-800/80">
             <img :src="b.logo" :alt="b.name" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-80 group-hover:opacity-100" />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-teal-950 via-teal-950/40 to-transparent"></div>
             <span class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow">
               {{ b.badge }}
             </span>
@@ -47,15 +48,15 @@ const BRANDS = [
           <h4 class="text-lg font-black text-white group-hover:text-yellow-400 transition mb-1">
             {{ b.name }}
           </h4>
-          <p class="text-xs text-slate-400 leading-relaxed font-medium">
+          <p class="text-xs text-teal-100/70 leading-relaxed font-medium">
             {{ b.desc }}
           </p>
 
-          <div class="mt-4 pt-4 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400 font-bold">
+          <div class="mt-4 pt-4 border-t border-teal-800/80 flex items-center justify-between text-[11px] text-teal-200/80 font-bold">
             <span class="flex items-center gap-1 text-emerald-400">
               <ShieldCheck class="w-3.5 h-3.5" /> Có sẵn CO/CQ
             </span>
-            <span class="text-slate-300">Giao ngay 24/7</span>
+            <span class="text-yellow-400">Giao ngay 24/7</span>
           </div>
         </div>
       </div>

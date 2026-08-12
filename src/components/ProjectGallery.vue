@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { Building2, MapPin, CheckCircle2, ArrowUpRight, Eye } from 'lucide-vue-next';
 
 interface ProjectItem {
@@ -65,53 +65,53 @@ const filteredProjects = computed(() => {
 </script>
 
 <template>
-  <section class="py-20 px-6 bg-slate-100 border-t border-b border-slate-200">
+  <section id="projects" class="py-20 px-6 bg-teal-950 text-white relative border-b border-teal-900">
     <div class="max-w-7xl mx-auto">
       <!-- Section Title & Tabs -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 animate-fade-in-up">
         <div>
-          <span class="inline-flex items-center gap-2 bg-red-100 text-red-600 text-xs font-black uppercase px-3.5 py-1.5 rounded-full tracking-widest mb-3">
-            <Building2 class="w-4 h-4" /> DỰ ÁN NỔI BẬT & NĂNG LỰC CUNG CẤP
+          <span class="inline-flex items-center gap-2 bg-teal-900/90 text-teal-300 text-xs font-black uppercase px-4 py-1.5 rounded-full border border-teal-700/60 tracking-widest mb-3 shadow-md">
+            <Building2 class="w-4 h-4 text-yellow-400" /> DỰ ÁN NỔI BẬT & NĂNG LỰC CUNG CẤP
           </span>
-          <h3 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+          <h3 class="text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
             CÔNG TRÌNH TIÊU BIỂU SỬ DỤNG THÉP VIỆT TÍN
           </h3>
         </div>
 
         <!-- Filter Tabs -->
-        <div class="flex flex-wrap gap-2 bg-white p-1.5 rounded-2xl shadow-sm border border-slate-200">
+        <div class="flex flex-wrap gap-2 bg-teal-900/80 p-1.5 rounded-2xl shadow-lg border border-teal-800">
           <button 
             @click="activeTab = 'ALL'"
             class="px-4 py-2 text-xs font-extrabold rounded-xl transition duration-200"
-            :class="activeTab === 'ALL' ? 'bg-red-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'"
+            :class="activeTab === 'ALL' ? 'bg-red-600 text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
           >
             Tất Cả Dự Án
           </button>
           <button 
             @click="activeTab = 'CAUDUONG'"
             class="px-4 py-2 text-xs font-extrabold rounded-xl transition duration-200"
-            :class="activeTab === 'CAUDUONG' ? 'bg-red-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'"
+            :class="activeTab === 'CAUDUONG' ? 'bg-red-600 text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
           >
             Cầu Đường
           </button>
           <button 
             @click="activeTab = 'NHAXUONG'"
             class="px-4 py-2 text-xs font-extrabold rounded-xl transition duration-200"
-            :class="activeTab === 'NHAXUONG' ? 'bg-red-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'"
+            :class="activeTab === 'NHAXUONG' ? 'bg-red-600 text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
           >
             Nhà Xưởng
           </button>
           <button 
             @click="activeTab = 'CHUNGCU'"
             class="px-4 py-2 text-xs font-extrabold rounded-xl transition duration-200"
-            :class="activeTab === 'CHUNGCU' ? 'bg-red-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'"
+            :class="activeTab === 'CHUNGCU' ? 'bg-red-600 text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
           >
             Chung Cư
           </button>
           <button 
             @click="activeTab = 'KHOHANG'"
             class="px-4 py-2 text-xs font-extrabold rounded-xl transition duration-200"
-            :class="activeTab === 'KHOHANG' ? 'bg-red-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'"
+            :class="activeTab === 'KHOHANG' ? 'bg-red-600 text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
           >
             Kho Hàng
           </button>
@@ -121,40 +121,41 @@ const filteredProjects = computed(() => {
       <!-- Projects Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div 
-          v-for="p in filteredProjects" 
+          v-for="(p, index) in filteredProjects" 
           :key="p.id"
-          class="group bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-200 hover:border-red-500 hover:shadow-2xl transition duration-300 flex flex-col"
+          class="group bg-teal-900/50 rounded-3xl overflow-hidden shadow-lg border border-teal-800 hover:border-yellow-400 hover:shadow-2xl transition duration-300 flex flex-col animate-fade-in-up"
+          :style="{ animationDelay: `${index * 150}ms` }"
         >
-          <div class="relative h-56 overflow-hidden bg-slate-950">
+          <div class="relative h-56 overflow-hidden bg-teal-950">
             <img 
               :src="p.image" 
               :alt="p.title" 
-              class="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-90 group-hover:opacity-100"
+              class="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-80 group-hover:opacity-100"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-teal-950 via-teal-950/30 to-transparent"></div>
             
-            <span class="absolute top-4 left-4 bg-slate-900/90 backdrop-blur-md text-white text-[10px] font-black uppercase px-3 py-1 rounded-full border border-slate-700 tracking-wider">
+            <span class="absolute top-4 left-4 bg-teal-950/90 backdrop-blur-md text-white text-[10px] font-black uppercase px-3 py-1 rounded-full border border-teal-700/80 tracking-wider">
               {{ p.categoryLabel }}
             </span>
           </div>
 
           <div class="p-6 flex-grow flex flex-col justify-between">
             <div>
-              <div class="flex items-center gap-1.5 text-slate-500 text-xs font-semibold mb-2">
-                <MapPin class="w-3.5 h-3.5 text-red-600 flex-shrink-0" />
+              <div class="flex items-center gap-1.5 text-teal-200/70 text-xs font-semibold mb-2">
+                <MapPin class="w-3.5 h-3.5 text-red-500 flex-shrink-0" />
                 <span>{{ p.location }}</span>
               </div>
 
-              <h4 class="text-lg font-extrabold text-slate-900 group-hover:text-red-600 transition leading-snug mb-3">
+              <h4 class="text-lg font-extrabold text-white group-hover:text-yellow-400 transition leading-snug mb-3">
                 {{ p.title }}
               </h4>
             </div>
 
-            <div class="pt-4 border-t border-slate-100 mt-4 flex items-center justify-between text-xs font-extrabold">
-              <span class="text-red-600 bg-red-50 px-2.5 py-1 rounded-lg">
+            <div class="pt-4 border-t border-teal-800/80 mt-4 flex items-center justify-between text-xs font-extrabold">
+              <span class="text-yellow-400 bg-teal-950/80 px-2.5 py-1 rounded-lg border border-teal-800">
                 {{ p.volume }}
               </span>
-              <span class="text-slate-400 font-mono">
+              <span class="text-teal-200/80 font-mono">
                 {{ p.date }}
               </span>
             </div>

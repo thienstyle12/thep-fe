@@ -30,15 +30,15 @@ const ARTICLES = [
 </script>
 
 <template>
-  <section class="py-20 px-6 bg-white">
+  <section class="py-20 px-6 bg-teal-950 text-white relative border-b border-teal-900">
     <div class="max-w-7xl mx-auto">
       <!-- Section Header -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 animate-fade-in-up">
         <div>
-          <span class="inline-flex items-center gap-2 bg-red-100 text-red-600 text-xs font-black uppercase px-3.5 py-1.5 rounded-full tracking-widest mb-3">
-            <TrendingUp class="w-4 h-4 text-red-600" /> THỊ TRƯỜNG & TIN TỨC DỰ ÁN
+          <span class="inline-flex items-center gap-2 bg-teal-900/90 text-teal-300 text-xs font-black uppercase px-4 py-1.5 rounded-full border border-teal-700/60 tracking-widest mb-3 shadow-md">
+            <TrendingUp class="w-4 h-4 text-yellow-400" /> THỊ TRƯỜNG & TIN TỨC DỰ ÁN
           </span>
-          <h3 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+          <h3 class="text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
             TIN TỨC THỊ TRƯỜNG THÉP & TƯ VẤN XÂY DỰNG
           </h3>
         </div>
@@ -47,12 +47,13 @@ const ARTICLES = [
       <!-- Articles Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <article 
-          v-for="a in ARTICLES" 
+          v-for="(a, idx) in ARTICLES" 
           :key="a.id"
-          class="group bg-slate-50 border border-slate-200 rounded-3xl overflow-hidden hover:shadow-xl transition duration-300 hover:border-red-400 flex flex-col"
+          class="group bg-teal-900/50 border border-teal-800 rounded-3xl overflow-hidden hover:shadow-xl transition duration-300 hover:border-yellow-400 flex flex-col animate-fade-in-up"
+          :style="{ animationDelay: `${idx * 150}ms` }"
         >
-          <div class="relative h-48 overflow-hidden bg-slate-950">
-            <img :src="a.image" :alt="a.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" />
+          <div class="relative h-48 overflow-hidden bg-teal-950">
+            <img :src="a.image" :alt="a.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80 group-hover:opacity-100" />
             <span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full tracking-wider shadow">
               {{ a.category }}
             </span>
@@ -60,23 +61,23 @@ const ARTICLES = [
 
           <div class="p-6 flex-grow flex flex-col justify-between">
             <div>
-              <div class="flex items-center gap-1.5 text-xs text-slate-400 font-semibold mb-3">
-                <Calendar class="w-3.5 h-3.5 text-slate-400" />
+              <div class="flex items-center gap-1.5 text-xs text-teal-200/70 font-semibold mb-3">
+                <Calendar class="w-3.5 h-3.5 text-teal-200/70" />
                 <span>{{ a.date }}</span>
               </div>
 
-              <h4 class="text-lg font-extrabold text-slate-900 group-hover:text-red-600 transition leading-snug mb-3">
+              <h4 class="text-lg font-extrabold text-white group-hover:text-yellow-400 transition leading-snug mb-3">
                 {{ a.title }}
               </h4>
 
-              <p class="text-xs text-slate-600 leading-relaxed font-normal">
+              <p class="text-xs text-teal-100/70 leading-relaxed font-normal">
                 {{ a.excerpt }}
               </p>
             </div>
 
-            <div class="pt-4 mt-6 border-t border-slate-200 flex items-center justify-between">
-              <span class="text-xs font-black text-red-600 group-hover:translate-x-1 transition flex items-center gap-1">
-                Đọc Chi Tiết <ArrowRight class="w-4 h-4" />
+            <div class="pt-4 mt-6 border-t border-teal-800/80 flex items-center justify-between">
+              <span class="text-xs font-black text-yellow-400 group-hover:translate-x-1 transition flex items-center gap-1">
+                Đọc Chi Tiết <ArrowRight class="w-4 h-4 text-yellow-400" />
               </span>
             </div>
           </div>
