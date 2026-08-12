@@ -120,7 +120,7 @@ const news = [
 </script>
 
 <template>
-  <div class="bg-slate-950 text-slate-100 min-h-screen">
+  <div class="bg-white text-slate-800 min-h-screen">
     <!-- ═══ NAVBAR ═══════════════════════════════════════════════════════════ -->
     <Navbar :categories="categories" />
 
@@ -131,60 +131,60 @@ const news = [
         alt="Thép Việt Tín"
         class="absolute inset-0 w-full h-full object-cover"
       />
-      <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-red-950/60"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-[#006a64]/90 to-[#00544f]/80"></div>
       <div class="relative z-10 max-w-7xl mx-auto px-6 h-full flex items-center gap-8">
         <div>
           <div class="flex items-center gap-2 mb-3">
-            <span class="w-1.5 h-8 bg-red-600 rounded-full"></span>
-            <span class="text-xs font-bold text-red-400 uppercase tracking-widest">Nhà phân phối thép công trình</span>
+            <span class="w-1.5 h-8 bg-yellow-400 rounded-full"></span>
+            <span class="text-xs font-bold text-teal-100 uppercase tracking-widest">Nhà phân phối thép công trình</span>
           </div>
           <h1 class="text-4xl md:text-5xl font-black text-white leading-tight drop-shadow-lg">
             THÉP VIỆT TÍN
           </h1>
-          <p class="text-slate-300 text-sm mt-2 font-medium">
+          <p class="text-teal-100/90 text-sm mt-2 font-medium">
             Cung cấp thép xây dựng · Giá tận kho · Giao xe cẩu tận công trình
           </p>
         </div>
         <div class="ml-auto hidden md:flex flex-col gap-2">
           <a href="tel:0932283783"
-            class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-black px-5 py-3 rounded-xl text-sm transition shadow-xl">
+            class="flex items-center gap-2 bg-[#006a64] hover:bg-[#00544f] border border-teal-400/40 text-white font-black px-5 py-3 rounded-xl text-sm transition shadow-xl">
             <Phone class="w-4 h-4 text-yellow-300" /> 093 228 37 83
           </a>
           <a href="https://zalo.me/0932283783" target="_blank"
-            class="flex items-center gap-2 bg-slate-900/90 hover:bg-black text-white font-bold px-5 py-2.5 rounded-xl text-sm transition border border-slate-700">
-            <MessageCircle class="w-4 h-4 text-blue-400" /> Zalo Tư Vấn
+            class="flex items-center gap-2 bg-slate-900/80 hover:bg-black text-white font-bold px-5 py-2.5 rounded-xl text-sm transition border border-white/20">
+            <MessageCircle class="w-4 h-4 text-blue-300" /> Zalo Tư Vấn
           </a>
         </div>
       </div>
     </section>
 
     <!-- ═══ TRUST BAR ════════════════════════════════════════════════════════ -->
-    <div class="bg-red-600 text-white py-2.5 px-4 shadow-lg">
+    <div class="bg-[#006a64] text-white py-2.5 px-4 shadow-md">
       <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-5 text-xs font-bold">
-        <span class="flex items-center gap-1.5"><CheckCircle2 class="w-3.5 h-3.5 shrink-0" /> Cam kết CO/CQ đầy đủ</span>
-        <span class="text-red-300 hidden sm:inline">|</span>
-        <span class="flex items-center gap-1.5"><CheckCircle2 class="w-3.5 h-3.5 shrink-0" /> Giao xe cẩu tận công trình</span>
-        <span class="text-red-300 hidden sm:inline">|</span>
-        <span class="flex items-center gap-1.5"><CheckCircle2 class="w-3.5 h-3.5 shrink-0" /> Giá tận kho, không qua trung gian</span>
-        <span class="text-red-300 hidden sm:inline">|</span>
-        <span class="flex items-center gap-1.5"><CheckCircle2 class="w-3.5 h-3.5 shrink-0" /> Hotline 24/7: 093 228 37 83</span>
+        <span class="flex items-center gap-1.5"><CheckCircle2 class="w-3.5 h-3.5 shrink-0 text-yellow-300" /> Cam kết CO/CQ đầy đủ</span>
+        <span class="text-teal-300 hidden sm:inline">|</span>
+        <span class="flex items-center gap-1.5"><CheckCircle2 class="w-3.5 h-3.5 shrink-0 text-yellow-300" /> Giao xe cẩu tận công trình</span>
+        <span class="text-teal-300 hidden sm:inline">|</span>
+        <span class="flex items-center gap-1.5"><CheckCircle2 class="w-3.5 h-3.5 shrink-0 text-yellow-300" /> Giá tận kho, không qua trung gian</span>
+        <span class="text-teal-300 hidden sm:inline">|</span>
+        <span class="flex items-center gap-1.5"><CheckCircle2 class="w-3.5 h-3.5 shrink-0 text-yellow-300" /> Hotline 24/7: 093 228 37 83</span>
       </div>
     </div>
 
     <!-- ═══ SẢN PHẨM (CATEGORY GRID) ════════════════════════════════════════ -->
-    <section class="py-12 px-4 max-w-7xl mx-auto border-b border-slate-900">
+    <section class="py-12 px-4 max-w-7xl mx-auto border-b border-slate-100">
       <div class="mb-8 flex items-end justify-between">
         <div>
           <div class="flex items-center gap-2 mb-1">
-            <span class="w-1.5 h-6 bg-red-600 rounded-full"></span>
-            <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight uppercase">Sản Phẩm</h2>
+            <span class="w-1.5 h-6 bg-[#006a64] rounded-full"></span>
+            <h2 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight uppercase">Sản Phẩm</h2>
           </div>
-          <p class="text-slate-400 text-sm ml-3 pl-2 border-l-2 border-slate-800">
+          <p class="text-slate-500 text-sm ml-3 pl-2 border-l-2 border-slate-200">
             Nhấp vào danh mục để xem đầy đủ sản phẩm và báo giá chi tiết
           </p>
         </div>
         <button @click="goToProducts(categories[0]?.id)"
-          class="hidden sm:flex items-center gap-1.5 text-sm font-bold text-yellow-400 hover:text-red-500 transition">
+          class="hidden sm:flex items-center gap-1.5 text-sm font-bold text-[#006a64] hover:text-[#00544f] transition">
           Xem tất cả <ArrowRight class="w-4 h-4" />
         </button>
       </div>
@@ -195,26 +195,26 @@ const news = [
           v-for="(cat, idx) in categories"
           :key="cat.id"
           @click="goToProducts(cat.id)"
-          class="group rounded-2xl overflow-hidden shadow-xl transition-all duration-300 border border-slate-800 bg-slate-900 hover:border-red-500 hover:-translate-y-1 cursor-pointer text-left focus:outline-none"
+          class="group rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 hover:border-[#006a64] bg-white hover:-translate-y-1 cursor-pointer text-left focus:outline-none"
         >
           <div class="relative overflow-hidden" style="padding-bottom:66%">
             <img
               :src="CATEGORY_META[cat.code]?.image || 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80'"
               :alt="cat.name"
-              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
             <!-- Watermark -->
-            <div class="absolute bottom-0 left-0 right-0 flex items-center gap-1 px-2.5 py-1.5 bg-slate-950/90 border-t border-slate-800">
-              <span class="w-5 h-5 bg-red-600 rounded text-[8px] font-black text-white flex items-center justify-center shrink-0">VT</span>
+            <div class="absolute bottom-0 left-0 right-0 flex items-center gap-1 px-2.5 py-1.5 bg-[#006a64]/90">
+              <span class="w-5 h-5 bg-white rounded text-[8px] font-black text-[#006a64] flex items-center justify-center shrink-0">VT</span>
               <span class="text-white text-[10px] font-bold">THÉP VIỆT TÍN</span>
             </div>
           </div>
-          <div class="bg-slate-900 px-3.5 py-3 flex items-center justify-between">
-            <span class="font-black text-white text-sm group-hover:text-yellow-400 transition uppercase tracking-wide leading-tight">
+          <div class="bg-white px-3.5 py-3 flex items-center justify-between">
+            <span class="font-black text-slate-800 text-sm group-hover:text-[#006a64] transition uppercase tracking-wide leading-tight">
               {{ cat.name }}
             </span>
-            <ArrowRight class="w-3.5 h-3.5 text-slate-400 group-hover:text-red-500 group-hover:translate-x-0.5 transition-all shrink-0" />
+            <ArrowRight class="w-3.5 h-3.5 text-slate-400 group-hover:text-[#006a64] group-hover:translate-x-0.5 transition-all shrink-0" />
           </div>
         </button>
       </div>
@@ -224,7 +224,7 @@ const news = [
     <section class="py-12 px-4 border-t border-slate-100 bg-white">
       <div class="max-w-7xl mx-auto">
         <div class="flex items-center gap-2 mb-8">
-          <span class="w-1 h-6 bg-red-600 rounded-full"></span>
+          <span class="w-1.5 h-6 bg-[#006a64] rounded-full"></span>
           <h2 class="text-2xl font-black text-slate-800 uppercase tracking-tight">Đối Tác Của Chúng Tôi</h2>
         </div>
         <!-- Logo scroll row -->
@@ -260,7 +260,7 @@ const news = [
               </div>
               <!-- JFE -->
               <div class="shrink-0 flex items-center justify-center h-14 px-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300">
-                <div class="text-2xl font-black text-teal-700 border-2 border-teal-600 px-3">JFE</div>
+                <div class="text-2xl font-black text-[#006a64] border-2 border-[#006a64] px-3">JFE</div>
               </div>
               <!-- Coil -->
               <div class="shrink-0 flex items-center justify-center h-14 px-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300">
@@ -276,7 +276,7 @@ const news = [
     <section class="py-12 px-4 bg-slate-50 border-t border-slate-200">
       <div class="max-w-7xl mx-auto">
         <div class="flex items-center gap-2 mb-8">
-          <span class="w-1 h-6 bg-red-600 rounded-full"></span>
+          <span class="w-1.5 h-6 bg-[#006a64] rounded-full"></span>
           <h2 class="text-2xl font-black text-slate-800 uppercase tracking-tight">Dự Án Tiêu Biểu</h2>
         </div>
 
@@ -328,7 +328,7 @@ const news = [
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 
           <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-            <div class="w-14 h-14 bg-teal-700 rounded-xl flex items-center justify-center mb-4 group-hover:bg-teal-600 transition">
+            <div class="w-14 h-14 bg-[#006a64] rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#00544f] transition">
               <ShieldCheck class="w-7 h-7 text-white" />
             </div>
             <h3 class="font-extrabold text-slate-800 text-base uppercase tracking-wide mb-2">
@@ -340,7 +340,7 @@ const news = [
           </div>
 
           <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-            <div class="w-14 h-14 bg-teal-700 rounded-xl flex items-center justify-center mb-4 group-hover:bg-teal-600 transition">
+            <div class="w-14 h-14 bg-[#006a64] rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#00544f] transition">
               <Users class="w-7 h-7 text-white" />
             </div>
             <h3 class="font-extrabold text-slate-800 text-base uppercase tracking-wide mb-2">
@@ -352,7 +352,7 @@ const news = [
           </div>
 
           <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-            <div class="w-14 h-14 bg-teal-700 rounded-xl flex items-center justify-center mb-4 group-hover:bg-teal-600 transition">
+            <div class="w-14 h-14 bg-[#006a64] rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#00544f] transition">
               <TrendingUp class="w-7 h-7 text-white" />
             </div>
             <h3 class="font-extrabold text-slate-800 text-base uppercase tracking-wide mb-2">
@@ -364,7 +364,7 @@ const news = [
           </div>
 
           <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-            <div class="w-14 h-14 bg-teal-700 rounded-xl flex items-center justify-center mb-4 group-hover:bg-teal-600 transition">
+            <div class="w-14 h-14 bg-[#006a64] rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#00544f] transition">
               <Star class="w-7 h-7 text-white" />
             </div>
             <h3 class="font-extrabold text-slate-800 text-base uppercase tracking-wide mb-2">
@@ -390,8 +390,8 @@ const news = [
         />
         <div class="absolute inset-0 bg-black/20"></div>
       </div>
-      <!-- Right: Quote teal -->
-      <div class="flex-1 bg-teal-700 flex flex-col items-center justify-center px-10 py-12 text-white text-center">
+      <!-- Right: Quote teal #006a64 -->
+      <div class="flex-1 bg-[#006a64] flex flex-col items-center justify-center px-10 py-12 text-white text-center">
         <div class="text-4xl font-black text-white/20 mb-4 leading-none">"</div>
         <blockquote class="text-xl md:text-2xl font-extrabold leading-snug italic max-w-xs">
           Mỗi tấn thép giao đi – là một phần cam kết chúng tôi giữ trọn.
@@ -399,7 +399,7 @@ const news = [
         <div class="w-12 h-0.5 bg-white/40 my-5"></div>
         <button
           @click="router.push({ name: 'products' })"
-          class="px-6 py-2.5 border-2 border-white text-white font-black text-sm rounded-xl hover:bg-white hover:text-teal-700 transition duration-200"
+          class="px-6 py-2.5 border-2 border-white text-white font-black text-sm rounded-xl hover:bg-white hover:text-[#006a64] transition duration-200"
         >
           Xem Sản Phẩm
         </button>
@@ -410,13 +410,13 @@ const news = [
     <section class="py-12 px-4 bg-slate-50 border-t border-slate-200">
       <div class="max-w-7xl mx-auto">
         <div class="flex items-center gap-2 mb-8">
-          <span class="w-1 h-6 bg-red-600 rounded-full"></span>
+          <span class="w-1.5 h-6 bg-[#006a64] rounded-full"></span>
           <h2 class="text-2xl font-black text-slate-800 uppercase tracking-tight">Dịch Vụ Giao Hàng</h2>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 
           <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-            <div class="w-14 h-14 bg-teal-700 rounded-xl flex items-center justify-center mb-4 group-hover:bg-teal-600 transition">
+            <div class="w-14 h-14 bg-[#006a64] rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#00544f] transition">
               <Calendar class="w-7 h-7 text-white" />
             </div>
             <h3 class="font-extrabold text-slate-800 text-sm uppercase tracking-wide mb-2">Giao Theo Kỳ Hạn</h3>
@@ -424,7 +424,7 @@ const news = [
           </div>
 
           <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-            <div class="w-14 h-14 bg-teal-700 rounded-xl flex items-center justify-center mb-4 group-hover:bg-teal-600 transition">
+            <div class="w-14 h-14 bg-[#006a64] rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#00544f] transition">
               <Package class="w-7 h-7 text-white" />
             </div>
             <h3 class="font-extrabold text-slate-800 text-sm uppercase tracking-wide mb-2">Giao Theo Tiến Độ</h3>
@@ -432,7 +432,7 @@ const news = [
           </div>
 
           <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-            <div class="w-14 h-14 bg-teal-700 rounded-xl flex items-center justify-center mb-4 group-hover:bg-teal-600 transition">
+            <div class="w-14 h-14 bg-[#006a64] rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#00544f] transition">
               <Clock class="w-7 h-7 text-white" />
             </div>
             <h3 class="font-extrabold text-slate-800 text-sm uppercase tracking-wide mb-2">Giao Theo Định Kỳ</h3>
@@ -440,7 +440,7 @@ const news = [
           </div>
 
           <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-            <div class="w-14 h-14 bg-teal-700 rounded-xl flex items-center justify-center mb-4 group-hover:bg-teal-600 transition">
+            <div class="w-14 h-14 bg-[#006a64] rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#00544f] transition">
               <Truck class="w-7 h-7 text-white" />
             </div>
             <h3 class="font-extrabold text-slate-800 text-sm uppercase tracking-wide mb-2">Giao Ngay</h3>
@@ -456,10 +456,10 @@ const news = [
       <div class="max-w-7xl mx-auto">
         <div class="flex items-end justify-between mb-8">
           <div class="flex items-center gap-2">
-            <span class="w-1 h-6 bg-red-600 rounded-full"></span>
+            <span class="w-1.5 h-6 bg-[#006a64] rounded-full"></span>
             <h2 class="text-2xl font-black text-slate-800 uppercase tracking-tight">Tin Tức Về Thép</h2>
           </div>
-          <a href="#" class="hidden sm:flex items-center gap-1.5 text-sm font-bold text-teal-700 hover:text-red-600 transition">
+          <a href="#" class="hidden sm:flex items-center gap-1.5 text-sm font-bold text-[#006a64] hover:text-[#00544f] transition">
             Xem tất cả <ArrowRight class="w-4 h-4" />
           </a>
         </div>
@@ -469,18 +469,18 @@ const news = [
             v-for="item in news"
             :key="item.title"
             href="#"
-            class="group block rounded-2xl overflow-hidden border border-slate-200 hover:border-teal-300 hover:shadow-lg transition-all duration-300"
+            class="group block rounded-2xl overflow-hidden border border-slate-200 hover:border-[#006a64] hover:shadow-lg transition-all duration-300"
           >
             <div class="relative overflow-hidden h-48">
               <img :src="item.image" :alt="item.title"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <span class="absolute top-3 left-3 bg-teal-700 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-full">
+              <span class="absolute top-3 left-3 bg-[#006a64] text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-full">
                 {{ item.tag }}
               </span>
             </div>
             <div class="p-5">
               <p class="text-[11px] text-slate-400 mb-2 font-medium">{{ item.date }}</p>
-              <h3 class="font-extrabold text-slate-800 text-sm leading-snug group-hover:text-teal-700 transition-colors line-clamp-3">
+              <h3 class="font-extrabold text-slate-800 text-sm leading-snug group-hover:text-[#006a64] transition-colors line-clamp-3">
                 {{ item.title }}
               </h3>
             </div>
@@ -490,18 +490,18 @@ const news = [
     </section>
 
     <!-- ═══ FOOTER ════════════════════════════════════════════════════════════ -->
-    <footer class="bg-teal-900 text-white py-12 px-4 border-t border-teal-800">
+    <footer class="bg-[#004e4a] text-white py-12 px-4 border-t border-teal-900">
       <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <!-- Logo & About -->
         <div>
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 bg-teal-800 border-2 border-white rounded-xl flex items-center justify-center font-black text-xl">VT</div>
+            <div class="w-12 h-12 bg-[#006a64] border-2 border-white rounded-xl flex items-center justify-center font-black text-xl">VT</div>
             <div>
               <h4 class="font-black text-white text-base leading-none">THÉP VIỆT TÍN</h4>
-              <span class="text-teal-300 text-[10px] font-bold uppercase tracking-wide">Nhà Phân Phối Thép Công Trình</span>
+              <span class="text-teal-200 text-[10px] font-bold uppercase tracking-wide">Nhà Phân Phối Thép Công Trình</span>
             </div>
           </div>
-          <p class="text-teal-200 text-xs leading-relaxed mb-5">
+          <p class="text-teal-100/80 text-xs leading-relaxed mb-5">
             Chuyên phân phối thép xây dựng, dây buộc 1 ly, thép rút đen, lưới thép trát tường. Cam kết chất lượng, đầy đủ CO/CQ.
           </p>
           <div class="flex items-center gap-2">
@@ -541,15 +541,15 @@ const news = [
           </h5>
           <ul class="space-y-3 text-xs text-teal-200">
             <li class="flex items-start gap-2">
-              <MapPin class="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+              <MapPin class="w-4 h-4 text-yellow-300 shrink-0 mt-0.5" />
               <span><strong class="text-white">Kho Miền Nam:</strong> Quốc Lộ 1A, Bình Tân, TP. Hồ Chí Minh</span>
             </li>
             <li class="flex items-start gap-2">
-              <MapPin class="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+              <MapPin class="w-4 h-4 text-yellow-300 shrink-0 mt-0.5" />
               <span><strong class="text-white">Kho Miền Bắc:</strong> Cụm CN Yên Mỹ, Hưng Yên</span>
             </li>
             <li class="flex items-start gap-2">
-              <Mail class="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+              <Mail class="w-4 h-4 text-yellow-300 shrink-0 mt-0.5" />
               <span>thepviettin@gmail.com</span>
             </li>
           </ul>
@@ -561,11 +561,11 @@ const news = [
             Hotline Báo Giá 24/7
           </h5>
           <a href="tel:0932283783"
-            class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-black px-4 py-3 rounded-xl text-sm mb-3 transition shadow-lg w-full justify-center">
-            <Phone class="w-4 h-4" /> 093 228 37 83
+            class="flex items-center gap-2 bg-[#006a64] hover:bg-[#00544f] border border-teal-400/30 text-white font-black px-4 py-3 rounded-xl text-sm mb-3 transition shadow-lg w-full justify-center">
+            <Phone class="w-4 h-4 text-yellow-300" /> 093 228 37 83
           </a>
           <a href="https://zalo.me/0932283783" target="_blank"
-            class="flex items-center gap-2 bg-teal-800 hover:bg-teal-700 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition w-full justify-center mb-3">
+            class="flex items-center gap-2 bg-teal-900 hover:bg-teal-800 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition w-full justify-center mb-3 border border-teal-700">
             <MessageCircle class="w-4 h-4 text-blue-300" /> Zalo: 093 228 37 83
           </a>
           <p class="text-teal-300 text-xs leading-relaxed">
@@ -574,7 +574,7 @@ const news = [
         </div>
       </div>
 
-      <div class="max-w-7xl mx-auto border-t border-teal-800 mt-10 pt-6 text-center text-xs text-teal-400">
+      <div class="max-w-7xl mx-auto border-t border-teal-900 mt-10 pt-6 text-center text-xs text-teal-400">
         © 2026 THÉP VIỆT TÍN. Bản quyền thuộc về Thép Việt Tín — Chất Lượng Tạo Niềm Tin.
       </div>
     </footer>

@@ -115,20 +115,20 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="bg-white min-h-screen">
+  <div class="bg-slate-50 min-h-screen text-slate-800">
     <Navbar :categories="categories" />
 
     <!-- Breadcrumb Bar -->
-    <div class="bg-slate-50 border-b border-slate-200 py-2.5 px-4">
+    <div class="bg-white border-b border-slate-200 py-2.5 px-4 shadow-sm">
       <div class="max-w-7xl mx-auto flex items-center gap-2 text-xs text-slate-500 font-medium">
-        <RouterLink to="/" class="hover:text-red-600 transition flex items-center gap-1">
+        <RouterLink to="/" class="hover:text-[#006a64] transition flex items-center gap-1">
           <Home class="w-3.5 h-3.5" /> Trang chủ
         </RouterLink>
         <ChevronRight class="w-3.5 h-3.5 text-slate-300" />
         <span class="text-slate-400">Sản phẩm</span>
         <template v-if="selectedCategory">
           <ChevronRight class="w-3.5 h-3.5 text-slate-300" />
-          <span class="text-red-600 font-bold">{{ selectedCategory.name }}</span>
+          <span class="text-[#006a64] font-bold">{{ selectedCategory.name }}</span>
         </template>
       </div>
     </div>
@@ -139,7 +139,7 @@ onMounted(async () => {
       <!-- ===== LEFT SIDEBAR ===== -->
       <!-- Mobile toggle button -->
       <button
-        class="lg:hidden fixed bottom-20 left-4 z-40 bg-red-600 text-white px-4 py-2 rounded-full shadow-lg text-xs font-bold flex items-center gap-2"
+        class="lg:hidden fixed bottom-20 left-4 z-40 bg-[#006a64] text-white px-4 py-2 rounded-full shadow-lg text-xs font-bold flex items-center gap-2"
         @click="isSidebarOpen = !isSidebarOpen"
       >
         <Filter class="w-4 h-4" /> Danh mục
@@ -154,20 +154,20 @@ onMounted(async () => {
         ]"
       >
         <!-- Sidebar header -->
-        <div class="bg-teal-800 text-white px-4 py-3 rounded-t-xl font-extrabold text-sm uppercase tracking-wide flex items-center gap-2">
+        <div class="bg-[#006a64] text-white px-4 py-3 rounded-t-xl font-extrabold text-sm uppercase tracking-wide flex items-center gap-2">
           <span class="w-1 h-5 bg-yellow-400 rounded"></span>
           Danh Mục Sản Phẩm
         </div>
 
         <!-- Category list -->
-        <div class="border border-slate-200 rounded-b-xl overflow-hidden">
+        <div class="border border-slate-200 rounded-b-xl overflow-hidden bg-white shadow-sm">
           <button
             @click="selectCategory(null)"
             :class="[
               'w-full text-left px-4 py-3 text-sm font-bold transition flex items-center justify-between border-b border-slate-100 last:border-0',
               selectedCategoryId === null
-                ? 'bg-red-50 text-red-600 border-l-4 border-l-red-600'
-                : 'text-slate-700 hover:bg-slate-50 hover:text-red-600'
+                ? 'bg-teal-50 text-[#006a64] border-l-4 border-l-[#006a64]'
+                : 'text-slate-700 hover:bg-slate-50 hover:text-[#006a64]'
             ]"
           >
             <span>Tất cả sản phẩm</span>
@@ -178,10 +178,10 @@ onMounted(async () => {
             :key="cat.id"
             @click="selectCategory(cat.id)"
             :class="[
-              'w-full text-left px-4 py-3 text-sm font-medium transition flex items-center justify-between border-b border-slate-100 last:border-0',
+              'w-full text-left px-4 py-3 text-sm font-bold transition flex items-center justify-between border-b border-slate-100 last:border-0',
               selectedCategoryId === cat.id
-                ? 'bg-red-50 text-red-600 border-l-4 border-l-red-600 font-bold'
-                : 'text-slate-600 hover:bg-slate-50 hover:text-red-600'
+                ? 'bg-teal-50 text-[#006a64] border-l-4 border-l-[#006a64]'
+                : 'text-slate-700 hover:bg-slate-50 hover:text-[#006a64]'
             ]"
           >
             <span>{{ cat.name }}</span>
@@ -190,10 +190,10 @@ onMounted(async () => {
         </div>
 
         <!-- Hotline CTA -->
-        <div class="mt-4 bg-red-600 rounded-xl p-4 text-white">
+        <div class="mt-4 bg-[#006a64] rounded-xl p-4 text-white">
           <p class="text-xs font-bold mb-1">📞 Cần tư vấn báo giá?</p>
           <a href="tel:0932283783" class="block text-lg font-black hover:underline">093 228 37 83</a>
-          <p class="text-red-200 text-xs mt-1">Hotline 24/7 – Giao hàng tận nơi</p>
+          <p class="text-teal-100 text-xs mt-1">Hotline 24/7 – Giao hàng tận nơi</p>
         </div>
       </aside>
 
@@ -237,8 +237,8 @@ onMounted(async () => {
             :class="[
               'px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition border',
               selectedCategoryId === null
-                ? 'bg-red-600 text-white border-red-600 shadow-md'
-                : 'bg-white text-slate-600 border-slate-300 hover:border-red-400 hover:text-red-600'
+                ? 'bg-[#006a64] text-white border-[#006a64] shadow-md'
+                : 'bg-white text-slate-600 border-slate-300 hover:border-[#006a64] hover:text-[#006a64]'
             ]"
           >
             Tất cả
@@ -250,8 +250,8 @@ onMounted(async () => {
             :class="[
               'px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition border',
               selectedCategoryId === cat.id
-                ? 'bg-red-600 text-white border-red-600 shadow-md'
-                : 'bg-white text-slate-600 border-slate-300 hover:border-red-400 hover:text-red-600'
+                ? 'bg-[#006a64] text-white border-[#006a64] shadow-md'
+                : 'bg-white text-slate-600 border-slate-300 hover:border-[#006a64] hover:text-[#006a64]'
             ]"
           >
             {{ cat.name }}
@@ -270,7 +270,7 @@ onMounted(async () => {
           <p class="text-slate-400 text-sm mb-4">Thử tìm kiếm với từ khóa khác hoặc chọn danh mục khác.</p>
           <button
             @click="searchKeyword = ''; selectCategory(null)"
-            class="text-red-600 font-extrabold text-sm underline hover:no-underline"
+            class="text-[#006a64] font-extrabold text-sm underline hover:no-underline"
           >
             Xem tất cả sản phẩm
           </button>
@@ -281,7 +281,7 @@ onMounted(async () => {
           <div
             v-for="(product, idx) in filteredProducts"
             :key="product.id"
-            class="bg-white rounded-xl shadow-sm border border-slate-200 hover:border-red-300 hover:shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-0.5 flex flex-col group"
+            class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-[#006a64] hover:shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-0.5 flex flex-col group"
             :style="{ animationDelay: `${(idx % 9) * 60}ms` }"
           >
             <!-- Product Image -->
@@ -293,7 +293,7 @@ onMounted(async () => {
                 @error="($event.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&q=80'"
               />
               <!-- Badge -->
-              <span class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase shadow">
+              <span class="absolute top-3 left-3 bg-[#006a64] text-white text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase shadow">
                 {{ product.badge || 'Sẵn Kho' }}
               </span>
               <!-- SKU -->
@@ -305,12 +305,12 @@ onMounted(async () => {
             <!-- Product Info -->
             <div class="p-4 flex-1 flex flex-col">
               <!-- Category tag -->
-              <span class="text-[10px] font-extrabold text-teal-700 uppercase tracking-widest mb-1">
+              <span class="text-[10px] font-extrabold text-[#006a64] uppercase tracking-widest mb-1">
                 {{ product.category || 'Thép Công Trình' }}
               </span>
 
               <!-- Name -->
-              <h3 class="font-extrabold text-slate-800 text-base leading-snug mb-2 group-hover:text-red-600 transition-colors line-clamp-2">
+              <h3 class="font-extrabold text-slate-800 text-base leading-snug mb-2 group-hover:text-[#006a64] transition-colors line-clamp-2">
                 {{ product.name }}
               </h3>
 
@@ -320,30 +320,32 @@ onMounted(async () => {
                 <p class="text-xs font-bold text-slate-700 line-clamp-2">{{ product.specifications }}</p>
               </div>
 
-              <p class="text-slate-400 text-xs leading-relaxed line-clamp-2 mb-3">{{ product.description }}</p>
-
-              <!-- Price + Actions -->
-              <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <!-- Price & Stock -->
+              <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
                 <div>
-                  <span class="text-[10px] text-slate-400 font-bold uppercase block">Đơn giá:</span>
-                  <span class="text-base font-black text-red-600">{{ formatPrice(product.pricePerUnit) }}</span>
-                  <span class="text-[10px] text-slate-400"> / {{ product.unit }}</span>
+                  <span class="text-[9px] font-bold text-slate-400 block uppercase">Đơn giá tham khảo:</span>
+                  <span class="text-base font-black text-[#006a64]">
+                    {{ formatPrice(product.pricePerUnit) }}
+                  </span>
+                  <span v-if="product.unit" class="text-[10px] text-slate-400 font-normal ml-0.5">/{{ product.unit }}</span>
                 </div>
 
+                <!-- Action buttons -->
                 <div class="flex items-center gap-1.5">
                   <button
-                    @click="modals.openDetail(product)"
-                    class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition"
+                    @click="modals.openProductDetail(product)"
                     title="Xem chi tiết"
+                    class="p-2 rounded-xl bg-slate-100 hover:bg-[#006a64] hover:text-white text-slate-600 transition"
                   >
                     <Eye class="w-4 h-4" />
                   </button>
                   <button
-                    @click="cartStore.addToCart(product); modals.isCartOpen = true"
-                    class="flex items-center gap-1.5 bg-red-600 hover:bg-red-700 text-white font-black px-3 py-2 rounded-lg text-xs uppercase shadow transition"
+                    @click="cartStore.addToCart(product, 1)"
+                    title="Thêm vào giỏ"
+                    class="p-2 rounded-xl bg-[#006a64] hover:bg-[#00544f] text-white transition flex items-center gap-1 text-xs font-bold px-3"
                   >
-                    <ShoppingCart class="w-3.5 h-3.5" />
-                    Báo Giá
+                    <ShoppingCart class="w-4 h-4" />
+                    <span>+ Thêm</span>
                   </button>
                 </div>
               </div>
@@ -357,7 +359,7 @@ onMounted(async () => {
     <footer class="bg-slate-900 text-white py-8 px-4 mt-12 border-t border-slate-800">
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 bg-slate-800 border-2 border-red-600 rounded-xl flex items-center justify-center font-black text-sm">VT</div>
+          <div class="w-9 h-9 bg-[#006a64] border-2 border-white rounded-xl flex items-center justify-center font-black text-sm">VT</div>
           <div>
             <span class="font-black text-white text-sm">THÉP VIỆT TÍN</span>
             <span class="text-slate-400 text-xs block">Chất Lượng Tạo Niềm Tin</span>
