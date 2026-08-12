@@ -40,7 +40,7 @@ const BRANDS = [
           <div class="h-40 rounded-2xl overflow-hidden mb-4 relative bg-teal-950 border border-teal-800/80">
             <img :src="b.logo" :alt="b.name" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-80 group-hover:opacity-100" />
             <div class="absolute inset-0 bg-gradient-to-t from-teal-950 via-teal-950/40 to-transparent"></div>
-            <span class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow">
+            <span class="absolute top-3 left-3 bg-[#006a64] text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow">
               {{ b.badge }}
             </span>
           </div>

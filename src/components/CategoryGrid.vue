@@ -63,7 +63,7 @@ const goToProducts = (catId: number) => {
               class="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-80 group-hover:opacity-100"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-teal-950 via-teal-950/30 to-transparent"></div>
-            <span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full tracking-wider shadow-lg shadow-red-600/40">
+            <span class="absolute top-4 left-4 bg-[#006a64] text-white text-[10px] font-black uppercase px-3 py-1 rounded-full tracking-wider shadow-lg shadow-teal-900/40">
               Sẵn Kho Giá Sỉ
             </span>
           </div>

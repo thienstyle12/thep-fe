@@ -242,7 +242,7 @@ const news = [
               </div>
               <!-- Pomina -->
               <div class="shrink-0 flex items-center justify-center h-14 px-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300">
-                <div class="text-xl font-black text-red-700">POMINA</div>
+                <div class="text-xl font-black text-[#006a64]">POMINA</div>
               </div>
               <!-- VNSTEEL -->
               <div class="shrink-0 flex items-center justify-center h-14 px-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300">
@@ -504,7 +504,7 @@ const news = [
             <a href="#" class="w-8 h-8 bg-teal-800 hover:bg-blue-600 rounded-lg flex items-center justify-center transition">
               <Facebook class="w-4 h-4" />
             </a>
-            <a href="#" class="w-8 h-8 bg-teal-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition">
+            <a href="#" class="w-8 h-8 bg-teal-800 hover:bg-[#006a64] rounded-lg flex items-center justify-center transition">
               <Youtube class="w-4 h-4" />
             </a>
             <a href="https://zalo.me/0932283783" target="_blank"

@@ -214,7 +214,7 @@ onMounted(async () => {
             </h1>
             <p class="text-slate-500 text-sm mt-0.5">
               {{ filteredProducts.length }} sản phẩm
-              <span v-if="selectedCategory">trong danh mục <span class="text-red-600 font-semibold">{{ selectedCategory.name }}</span></span>
+              <span v-if="selectedCategory">trong danh mục <span class="text-[#006a64] font-semibold">{{ selectedCategory.name }}</span></span>
             </p>
           </div>
 
@@ -224,7 +224,7 @@ onMounted(async () => {
               v-model="searchKeyword"
               type="text"
               placeholder="Tìm tên thép, quy cách, mác thép..."
-              class="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-xl text-sm outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-white"
+              class="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#006a64] focus:border-[#006a64] transition bg-white"
             />
             <Search class="w-4 h-4 text-slate-400 absolute left-3 top-3" />
           </div>

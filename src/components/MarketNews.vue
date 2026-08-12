@@ -54,7 +54,7 @@ const ARTICLES = [
         >
           <div class="relative h-48 overflow-hidden bg-teal-950">
             <img :src="a.image" :alt="a.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80 group-hover:opacity-100" />
-            <span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full tracking-wider shadow">
+            <span class="absolute top-4 left-4 bg-[#006a64] text-white text-[10px] font-black uppercase px-3 py-1 rounded-full tracking-wider shadow">
               {{ a.category }}
             </span>
           </div>

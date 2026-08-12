@@ -34,7 +34,7 @@ const COMMITMENTS = [
           <HeartHandshake class="w-4 h-4 text-yellow-400" /> VĂN HÓA VÀ CAM KẾT VIỆT TÍN
         </span>
         <h3 class="text-2xl md:text-4xl font-black italic tracking-tight text-white leading-snug">
-          “Thép là sản phẩm — nhưng <span class="text-yellow-400 underline decoration-red-600 decoration-4">chữ Tín</span> mới là tài sản lớn nhất của chúng tôi.”
+          “Thép là sản phẩm — nhưng <span class="text-yellow-400 underline decoration-[#006a64] decoration-4">chữ Tín</span> mới là tài sản lớn nhất của chúng tôi.”
         </h3>
       </div>
 

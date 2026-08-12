@@ -83,35 +83,35 @@ const filteredProjects = computed(() => {
           <button 
             @click="activeTab = 'ALL'"
             class="px-4 py-2 text-xs font-extrabold rounded-xl transition duration-200"
-            :class="activeTab === 'ALL' ? 'bg-red-600 text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
+            :class="activeTab === 'ALL' ? 'bg-[#006a64] text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
           >
             Tất Cả Dự Án
           </button>
           <button 
             @click="activeTab = 'CAUDUONG'"
             class="px-4 py-2 text-xs font-extrabold rounded-xl transition duration-200"
-            :class="activeTab === 'CAUDUONG' ? 'bg-red-600 text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
+            :class="activeTab === 'CAUDUONG' ? 'bg-[#006a64] text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
           >
             Cầu Đường
           </button>
           <button 
             @click="activeTab = 'NHAXUONG'"
             class="px-4 py-2 text-xs font-extrabold rounded-xl transition duration-200"
-            :class="activeTab === 'NHAXUONG' ? 'bg-red-600 text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
+            :class="activeTab === 'NHAXUONG' ? 'bg-[#006a64] text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
           >
             Nhà Xưởng
           </button>
           <button 
             @click="activeTab = 'CHUNGCU'"
             class="px-4 py-2 text-xs font-extrabold rounded-xl transition duration-200"
-            :class="activeTab === 'CHUNGCU' ? 'bg-red-600 text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
+            :class="activeTab === 'CHUNGCU' ? 'bg-[#006a64] text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
           >
             Chung Cư
           </button>
           <button 
             @click="activeTab = 'KHOHANG'"
             class="px-4 py-2 text-xs font-extrabold rounded-xl transition duration-200"
-            :class="activeTab === 'KHOHANG' ? 'bg-red-600 text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
+            :class="activeTab === 'KHOHANG' ? 'bg-[#006a64] text-white shadow-md' : 'text-teal-200 hover:bg-teal-800'"
           >
             Kho Hàng
           </button>
@@ -142,7 +142,7 @@ const filteredProjects = computed(() => {
           <div class="p-6 flex-grow flex flex-col justify-between">
             <div>
               <div class="flex items-center gap-1.5 text-teal-200/70 text-xs font-semibold mb-2">
-                <MapPin class="w-3.5 h-3.5 text-red-500 flex-shrink-0" />
+                <MapPin class="w-3.5 h-3.5 text-teal-300 flex-shrink-0" />
                 <span>{{ p.location }}</span>
               </div>
 

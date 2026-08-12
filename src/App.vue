@@ -13,7 +13,7 @@ const modals = useModalsStore();
 </script>
 
 <template>
-  <div class="min-h-screen bg-white text-slate-800 font-sans selection:bg-red-600 selection:text-white">
+  <div class="min-h-screen bg-white text-slate-800 font-sans selection:bg-[#006a64] selection:text-white">
     <RouterView />
 
     <!-- Global Modals (mounted once at app level) -->
