@@ -73,23 +73,23 @@ const handlePrintQuote = () => {
       <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between">
 
         <!-- Header -->
-        <div class="p-6 bg-slate-900 text-white flex justify-between items-center">
+        <div class="p-6 bg-[#006a64] text-white flex justify-between items-center">
           <h3 class="text-xl font-black uppercase">Đơn Báo Giá & Đặt Hàng</h3>
-          <button @click="closeDrawer" class="text-gray-400 hover:text-white"><X class="w-6 h-6"/></button>
+          <button @click="closeDrawer" class="text-teal-200 hover:text-white"><X class="w-6 h-6"/></button>
         </div>
 
         <!-- Success Message -->
         <div v-if="orderSuccess" class="p-8 text-center my-auto space-y-4">
-          <CheckCircle class="w-20 h-20 text-green-500 mx-auto"/>
+          <CheckCircle class="w-20 h-20 text-teal-600 mx-auto"/>
           <h4 class="text-2xl font-black text-slate-900">ĐẶT HÀNG THÀNH CÔNG!</h4>
-          <p class="text-gray-600">Mã đơn hàng của bạn: <strong class="text-red-600 font-mono text-xl block mt-1">{{ orderCode }}</strong></p>
+          <p class="text-gray-600">Mã đơn hàng của bạn: <strong class="text-[#006a64] font-mono text-xl block mt-1">{{ orderCode }}</strong></p>
           <p class="text-xs text-gray-500">Nhân viên kinh doanh Thép Việt Tín sẽ liên hệ chốt giá và xác nhận thời gian giao xe cẩu tận công trình trong 5 phút.</p>
           
           <div class="pt-4 flex flex-col gap-2">
             <button @click="handlePrintQuote" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-4 py-3 rounded-xl text-xs uppercase border border-slate-300">
               🖨️ In / Tải Bảng Báo Giá PDF
             </button>
-            <button @click="closeDrawer" class="w-full bg-slate-900 text-white font-bold px-6 py-3 rounded-xl text-xs uppercase">Đóng cửa sổ</button>
+            <button @click="closeDrawer" class="w-full bg-[#006a64] hover:bg-[#00544f] text-white font-bold px-6 py-3 rounded-xl text-xs uppercase">Đóng cửa sổ</button>
           </div>
         </div>
 
@@ -125,23 +125,23 @@ const handlePrintQuote = () => {
             <!-- Total Price -->
             <div class="flex justify-between items-center text-lg font-black text-slate-900">
               <span>TỔNG TIỀN DỰ KIẾN:</span>
-              <span class="text-red-600">{{ formatPrice(cartStore.totalPrice) }}</span>
+              <span class="text-[#006a64] font-mono">{{ formatPrice(cartStore.totalPrice) }}</span>
             </div>
 
             <!-- Customer Form -->
             <div class="space-y-3 pt-4 border-t">
               <h5 class="font-bold text-sm text-slate-900 uppercase">Thông tin giao hàng</h5>
-              <input v-model="customerName" type="text" placeholder="Họ và tên (*)" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-red-500"/>
-              <input v-model="customerPhone" type="tel" placeholder="Số điện thoại / Zalo (*)" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-red-500"/>
-              <input v-model="shippingAddress" type="text" placeholder="Địa chỉ nhận hàng công trình (*)" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-red-500"/>
-              <textarea v-model="note" placeholder="Ghi chú thêm (VD: Cần giao xe cẩu trước 9h sáng...)" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-red-500" rows="2"></textarea>
+              <input v-model="customerName" type="text" placeholder="Họ và tên (*)" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#006a64] focus:border-[#006a64]"/>
+              <input v-model="customerPhone" type="tel" placeholder="Số điện thoại / Zalo (*)" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#006a64] focus:border-[#006a64]"/>
+              <input v-model="shippingAddress" type="text" placeholder="Địa chỉ nhận hàng công trình (*)" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#006a64] focus:border-[#006a64]"/>
+              <textarea v-model="note" placeholder="Ghi chú thêm (VD: Cần giao xe cẩu trước 9h sáng...)" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#006a64] focus:border-[#006a64]" rows="2"></textarea>
             </div>
           </div>
         </div>
 
         <!-- Submit Button -->
         <div v-if="!orderSuccess && cartStore.items.length > 0" class="p-6 bg-gray-50 border-t">
-          <button @click="handleCheckout" :disabled="isSubmitting" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-3.5 rounded-xl shadow-lg uppercase transition">
+          <button @click="handleCheckout" :disabled="isSubmitting" class="w-full bg-[#006a64] hover:bg-[#00544f] text-white font-black py-3.5 rounded-xl shadow-lg uppercase transition">
             {{ isSubmitting ? 'ĐANG XỬ LÝ...' : 'XÁC NHẬN GỬI ĐƠN BÁO GIÁ' }}
           </button>
         </div>

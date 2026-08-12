@@ -46,7 +46,7 @@ const handleAddToCart = () => {
         <!-- Header -->
         <div class="px-6 py-4 bg-slate-950 text-white flex items-center justify-between flex-shrink-0">
           <div class="flex items-center gap-2">
-            <span class="bg-red-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider">
+            <span class="bg-[#006a64] text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider">
               {{ product.badge || 'Chính Hãng' }}
             </span>
             <span class="text-xs font-mono text-slate-400">SKU: {{ product.sku || 'VT-' + product.id }}</span>
@@ -68,11 +68,11 @@ const handleAddToCart = () => {
             <!-- Trust Badges -->
             <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 space-y-2.5 text-xs text-slate-700 font-semibold">
               <div class="flex items-center gap-2">
-                <ShieldCheck class="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                <ShieldCheck class="w-4 h-4 text-[#006a64] flex-shrink-0" />
                 <span>Chứng chỉ CO/CQ chuẩn nhà máy 100%</span>
               </div>
               <div class="flex items-center gap-2">
-                <Truck class="w-4 h-4 text-red-600 flex-shrink-0" />
+                <Truck class="w-4 h-4 text-[#006a64] flex-shrink-0" />
                 <span>Giao hàng xe cẩu tận chân công trình</span>
               </div>
               <div class="flex items-center gap-2">
@@ -85,7 +85,7 @@ const handleAddToCart = () => {
           <!-- Product Content Column -->
           <div class="md:col-span-7 flex flex-col justify-between space-y-6">
             <div>
-              <span class="text-xs font-extrabold text-red-600 uppercase tracking-widest block mb-1">
+              <span class="text-xs font-extrabold text-[#006a64] uppercase tracking-widest block mb-1">
                 {{ product.category || 'Thép Công Trình' }}
               </span>
               <h2 class="text-2xl md:text-3xl font-black text-slate-900 leading-tight mb-3">
@@ -93,14 +93,14 @@ const handleAddToCart = () => {
               </h2>
 
               <!-- Price Tag -->
-              <div class="bg-red-50 border border-red-100 rounded-2xl p-4 mb-5 flex items-baseline justify-between">
+              <div class="bg-teal-50/60 border border-teal-100 rounded-2xl p-4 mb-5 flex items-baseline justify-between">
                 <div>
                   <span class="text-xs text-slate-500 font-bold uppercase block mb-0.5">Đơn giá niêm yết:</span>
-                  <span class="text-2xl font-black text-red-600">{{ formatPrice(product.pricePerUnit) }}</span>
+                  <span class="text-2xl font-black text-[#006a64]">{{ formatPrice(product.pricePerUnit) }}</span>
                   <span class="text-xs text-slate-500 font-bold"> / {{ product.unit }}</span>
                 </div>
                 <div class="text-right">
-                  <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2.5 py-1 rounded-full uppercase">
+                  <span class="text-[10px] bg-[#006a64] text-white font-extrabold px-2.5 py-1 rounded-full uppercase">
                     Tồn kho: {{ product.stockQuantity || 500 }} {{ product.unit }}
                   </span>
                 </div>
@@ -126,7 +126,7 @@ const handleAddToCart = () => {
                     <input v-model.number="quantity" type="number" min="1" class="w-16 text-center font-bold text-sm bg-transparent outline-none" />
                     <button @click="quantity++" class="px-3 py-2 text-slate-700 hover:bg-slate-200 font-black">+</button>
                   </div>
-                  <span class="text-xs font-bold text-slate-500">Thành tiền tạm tính: <strong class="text-red-600 text-sm font-black">{{ formatPrice(totalPrice) }}</strong></span>
+                  <span class="text-xs font-bold text-slate-500">Thành tiền tạm tính: <strong class="text-[#006a64] text-sm font-black">{{ formatPrice(totalPrice) }}</strong></span>
                 </div>
               </div>
             </div>
@@ -137,7 +137,7 @@ const handleAddToCart = () => {
                 @click="handleAddToCart"
                 :class="[
                   'flex-1 py-3.5 rounded-2xl font-black uppercase text-xs tracking-wider shadow-lg transition flex items-center justify-center gap-2',
-                  addedNotice ? 'bg-emerald-600 text-white' : 'bg-red-600 hover:bg-red-700 text-white'
+                  addedNotice ? 'bg-emerald-600 text-white' : 'bg-[#006a64] hover:bg-[#00544f] text-white'
                 ]">
                 <template v-if="addedNotice">
                   <CheckCircle2 class="w-5 h-5" /> Đã thêm vào Giỏ Báo Giá!
