@@ -9,6 +9,9 @@ import ProductDetailModal from './components/ProductDetailModal.vue';
 import OrderTrackingModal from './components/OrderTrackingModal.vue';
 import FloatingContact from './components/FloatingContact.vue';
 import NotificationModal from './components/NotificationModal.vue';
+import PartnerBrands from './components/PartnerBrands.vue';
+import ProjectGallery from './components/ProjectGallery.vue';
+import MarketNews from './components/MarketNews.vue';
 import { useNotification } from './composables/useNotification';
 import { useCartStore } from './stores/cart';
 
@@ -191,6 +194,9 @@ onMounted(() => {
       </div>
     </section>
 
+    <!-- Partner Brands Section -->
+    <PartnerBrands />
+
     <!-- STEEL WEIGHT CALCULATOR SECTION -->
     <section class="max-w-7xl mx-auto px-6">
       <SteelCalculator />
@@ -313,6 +319,12 @@ onMounted(() => {
         </div>
       </div>
     </section>
+
+    <!-- Project Gallery Showcase -->
+    <ProjectGallery />
+
+    <!-- Market News & Advice -->
+    <MarketNews />
 
     <!-- Company About & Contact Info -->
     <section id="about" class="bg-slate-900 text-white py-16 px-6 mt-16 border-t border-slate-800">
