@@ -10,16 +10,22 @@ import {
   Users, Star, Package
 } from 'lucide-vue-next';
 
+import { FALLBACK_CATEGORIES } from '../data/fallbackData';
+
 interface Category { id: number; name: string; code: string; }
 
 const router = useRouter();
-const categories = ref<Category[]>([]);
+const categories = ref<Category[]>(FALLBACK_CATEGORIES);
 
 const fetchCategories = async () => {
   try {
     const res = await api.get('/categories');
-    categories.value = res.data;
-  } catch { /* nếu backend chưa chạy thì bỏ qua */ }
+    if (res.data && Array.isArray(res.data) && res.data.length > 0) {
+      categories.value = res.data;
+    }
+  } catch {
+    // Nếu backend chưa kết nối thì giữ nguyên dữ liệu mặc định FALLBACK_CATEGORIES
+  }
 };
 
 onMounted(fetchCategories);

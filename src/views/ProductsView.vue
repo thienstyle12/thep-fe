@@ -8,6 +8,8 @@ import { useCartStore } from '../stores/cart';
 import type { Product } from '../types';
 import { Search, Eye, ShoppingCart, Home, ChevronRight, Filter } from 'lucide-vue-next';
 
+import { FALLBACK_CATEGORIES, FALLBACK_PRODUCTS } from '../data/fallbackData';
+
 interface Category {
   id: number;
   name: string;
@@ -19,8 +21,8 @@ const router = useRouter();
 const modals = useModalsStore();
 const cartStore = useCartStore();
 
-const categories = ref<Category[]>([]);
-const products = ref<Product[]>([]);
+const categories = ref<Category[]>(FALLBACK_CATEGORIES);
+const products = ref<Product[]>(FALLBACK_PRODUCTS);
 const searchKeyword = ref('');
 const isLoadingProducts = ref(false);
 const isSidebarOpen = ref(false); // mobile sidebar toggle
@@ -37,9 +39,11 @@ const selectedCategory = computed(() =>
 const fetchCategories = async () => {
   try {
     const res = await api.get('/categories');
-    categories.value = res.data;
+    if (res.data && Array.isArray(res.data) && res.data.length > 0) {
+      categories.value = res.data;
+    }
   } catch (err) {
-    console.error('Error fetching categories', err);
+    // Giữ nguyên FALLBACK_CATEGORIES
   }
 };
 
@@ -51,11 +55,23 @@ const fetchProducts = async () => {
       ? `/products?categoryId=${selectedCategoryId.value}`
       : '/products';
     const res = await api.get(url);
-    products.value = res.data;
+    if (res.data && Array.isArray(res.data) && res.data.length > 0) {
+      products.value = res.data;
+    } else {
+      filterFallbackProducts();
+    }
   } catch (err) {
-    console.error('Error fetching products', err);
+    filterFallbackProducts();
   } finally {
     isLoadingProducts.value = false;
+  }
+};
+
+const filterFallbackProducts = () => {
+  if (selectedCategoryId.value) {
+    products.value = FALLBACK_PRODUCTS.filter(p => p.categoryId === selectedCategoryId.value);
+  } else {
+    products.value = FALLBACK_PRODUCTS;
   }
 };
 
