@@ -54,16 +54,12 @@ const handleCategoryClick = (catId: number | null) => {
     <!-- Main Header -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center gap-4">
       <!-- Logo -->
-      <RouterLink to="/" class="flex items-center space-x-2.5 group shrink-0">
-        <div class="w-10 h-10 bg-[#006a64] text-white font-black text-xl rounded-xl flex items-center justify-center border-2 border-teal-900 shadow-md group-hover:scale-105 transition duration-300">
-          VT
-        </div>
-        <div class="whitespace-nowrap">
-          <h2 class="text-xl font-black text-slate-900 tracking-tight leading-none">THÉP VIỆT TÍN</h2>
-          <span class="text-[9px] text-[#006a64] font-extrabold uppercase tracking-widest block mt-0.5">
-            Nhà Phân Phối Thép Công Trình
-          </span>
-        </div>
+      <RouterLink to="/" class="flex items-center space-x-2.5 group shrink-0 py-0.5">
+        <img
+          src="/logo-viettin.svg"
+          alt="THÉP VIỆT TÍN - CHẤT LƯỢNG TẠO NIỀM TIN"
+          class="h-12 sm:h-14 w-auto group-hover:scale-105 transition duration-300 object-contain"
+        />
       </RouterLink>
 
       <!-- Nav Links -->

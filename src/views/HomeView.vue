@@ -33,7 +33,7 @@ onMounted(fetchCategories);
 // ─── Category images ───────────────────────────────────────────────────────
 const CATEGORY_META: Record<string, { image: string; desc: string }> = {
   THAP_XAY_DUNG: {
-    image: 'https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?w=800&q=80',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSg6J3q4zJ7dDLvUA_RJv5_BUHjVQNPjaz0pRFkAAgOtA&s=10',
     desc: 'Thép cây CB300V, CB400V, Thép cuộn D6-D32 Hòa Phát, VIS, Pomina',
   },
   DAY_THAP_RUT: {
@@ -494,12 +494,8 @@ const news = [
       <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <!-- Logo & About -->
         <div>
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 bg-[#006a64] border-2 border-white rounded-xl flex items-center justify-center font-black text-xl">VT</div>
-            <div>
-              <h4 class="font-black text-white text-base leading-none">THÉP VIỆT TÍN</h4>
-              <span class="text-teal-200 text-[10px] font-bold uppercase tracking-wide">Nhà Phân Phối Thép Công Trình</span>
-            </div>
+          <div class="flex items-center gap-3 mb-4 bg-white p-2.5 rounded-2xl w-fit shadow-md">
+            <img src="/logo-viettin.svg" alt="THÉP VIỆT TÍN" class="h-12 w-auto" />
           </div>
           <p class="text-teal-100/80 text-xs leading-relaxed mb-5">
             Chuyên phân phối thép xây dựng, dây buộc 1 ly, thép rút đen, lưới thép trát tường. Cam kết chất lượng, đầy đủ CO/CQ.
