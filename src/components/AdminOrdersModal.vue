@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import api from '../api';
+import { useNotification } from '../composables/useNotification';
+
+const { showNotification } = useNotification();
 import {
   X, Plus, Edit3, Trash2, Package, ShoppingBag,
   Search, RefreshCw, CheckCircle2, ChevronDown,
@@ -178,6 +181,7 @@ const saveProduct = async () => {
       await api.post('/products', form.value);
     }
     saveSuccess.value = true;
+    showNotification('success', 'Lưu Thành Công!', 'Thông tin sản phẩm thép đã được lưu vào hệ thống.');
     await fetchProducts();
     emit('product-updated');
     setTimeout(() => {
@@ -185,6 +189,7 @@ const saveProduct = async () => {
     }, 900);
   } catch (err: any) {
     formError.value = err?.response?.data?.message || 'Đã xảy ra lỗi khi lưu sản phẩm. Vui lòng kiểm tra lại.';
+    showNotification('error', 'Lưu Sản Phẩm Thất Bại', formError.value);
   } finally {
     isSaving.value = false;
   }
@@ -195,10 +200,11 @@ const deleteProduct = async (id?: number) => {
   if (!confirm('Xác nhận XÓA sản phẩm thép này khỏi hệ thống?')) return;
   try {
     await api.delete(`/products/${id}`);
+    showNotification('success', 'Đã Xóa Sản Phẩm', 'Sản phẩm đã được xóa khỏi hệ thống.');
     await fetchProducts();
     emit('product-updated');
   } catch (err) {
-    alert('Không thể xóa sản phẩm!');
+    showNotification('error', 'Không Thể Xóa', 'Có lỗi xảy ra khi xóa sản phẩm!');
   }
 };
 
@@ -237,9 +243,10 @@ const fetchOrders = async () => {
 const updateOrderStatus = async (orderId: number, status: string) => {
   try {
     await api.patch(`/orders/${orderId}/status?status=${status}`);
+    showNotification('success', 'Cập Nhật Đơn Hàng', 'Trạng thái đơn hàng đã được cập nhật thành công!');
     await fetchOrders();
   } catch (err) {
-    alert('Không thể cập nhật trạng thái đơn hàng!');
+    showNotification('error', 'Lỗi Cập Nhật', 'Không thể cập nhật trạng thái đơn hàng!');
   }
 };
 

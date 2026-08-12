@@ -8,7 +8,11 @@ import AdminOrdersModal from './components/AdminOrdersModal.vue';
 import ProductDetailModal from './components/ProductDetailModal.vue';
 import OrderTrackingModal from './components/OrderTrackingModal.vue';
 import FloatingContact from './components/FloatingContact.vue';
+import NotificationModal from './components/NotificationModal.vue';
+import { useNotification } from './composables/useNotification';
 import { useCartStore } from './stores/cart';
+
+const { notification, closeNotification } = useNotification();
 import type { Product } from './types';
 import { Search, Phone, ShieldCheck, Truck, Factory, MapPin, Award, CheckCircle2, MessageCircle, Eye } from 'lucide-vue-next';
 
@@ -382,5 +386,8 @@ onMounted(() => {
 
     <!-- Floating Speed Dial Contact -->
     <FloatingContact @open-tracking="isTrackingOpen = true" @open-cart="isCartOpen = true" />
+
+    <!-- Center Popup Notification Modal -->
+    <NotificationModal :notification="notification" @close="closeNotification" />
   </div>
 </template>

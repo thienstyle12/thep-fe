@@ -42,7 +42,7 @@ const cartStore = useCartStore();
       <!-- Nav Links -->
       <nav class="hidden lg:flex items-center space-x-8 font-bold text-slate-700 text-sm">
         <a href="#products" class="hover:text-red-600 transition">Sản Phẩm Thép</a>
-        <a href="#calculator" class="hover:text-red-600 transition flex items-center gap-1 text-red-600">
+        <a href="#calculator" class="hover:text-red-600 transition flex items-center gap-1">
           🧮 Tính Trọng Lượng
         </a>
         <a href="#about" class="hover:text-red-600 transition">Về Chúng Tôi</a>

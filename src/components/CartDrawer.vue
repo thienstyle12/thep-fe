@@ -3,6 +3,9 @@ import { ref } from 'vue';
 import { useCartStore } from '../stores/cart';
 import { X, Trash2, CheckCircle } from 'lucide-vue-next';
 import api from '../api';
+import { useNotification } from '../composables/useNotification';
+
+const { showNotification } = useNotification();
 
 defineProps<{ isOpen: boolean }>();
 const emit = defineEmits(['close']);
@@ -44,10 +47,9 @@ const handleCheckout = async () => {
 
     const res = await api.post('/orders', payload);
     orderCode.value = res.data.orderCode;
-    orderSuccess.value = true;
-    cartStore.clearCart();
+    showNotification('success', 'Gửi Đơn Hàng Thành Công!', `Mã đơn hàng của bạn là #${res.data.orderCode}`);
   } catch (err) {
-    alert('Có lỗi xảy ra khi gửi đơn hàng. Vui lòng kiểm tra lại!');
+    showNotification('error', 'Lỗi Gửi Đơn Hàng', 'Có lỗi xảy ra khi gửi đơn hàng. Vui lòng kiểm tra kết nối và thử lại!');
   } finally {
     isSubmitting.value = false;
   }
