@@ -120,7 +120,7 @@ const news = [
 </script>
 
 <template>
-  <div class="bg-white min-h-screen">
+  <div class="bg-slate-950 text-slate-100 min-h-screen">
     <!-- ═══ NAVBAR ═══════════════════════════════════════════════════════════ -->
     <Navbar :categories="categories" />
 
@@ -131,12 +131,12 @@ const news = [
         alt="Thép Việt Tín"
         class="absolute inset-0 w-full h-full object-cover"
       />
-      <div class="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-800/60 to-teal-900/50"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-red-950/60"></div>
       <div class="relative z-10 max-w-7xl mx-auto px-6 h-full flex items-center gap-8">
         <div>
           <div class="flex items-center gap-2 mb-3">
-            <span class="w-1 h-8 bg-red-500 rounded-full"></span>
-            <span class="text-xs font-bold text-slate-300 uppercase tracking-widest">Nhà phân phối thép công trình</span>
+            <span class="w-1.5 h-8 bg-red-600 rounded-full"></span>
+            <span class="text-xs font-bold text-red-400 uppercase tracking-widest">Nhà phân phối thép công trình</span>
           </div>
           <h1 class="text-4xl md:text-5xl font-black text-white leading-tight drop-shadow-lg">
             THÉP VIỆT TÍN
@@ -148,18 +148,18 @@ const news = [
         <div class="ml-auto hidden md:flex flex-col gap-2">
           <a href="tel:0932283783"
             class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-black px-5 py-3 rounded-xl text-sm transition shadow-xl">
-            <Phone class="w-4 h-4" /> 093 228 37 83
+            <Phone class="w-4 h-4 text-yellow-300" /> 093 228 37 83
           </a>
           <a href="https://zalo.me/0932283783" target="_blank"
-            class="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur text-white font-bold px-5 py-2.5 rounded-xl text-sm transition border border-white/20">
-            <MessageCircle class="w-4 h-4 text-blue-300" /> Zalo Tư Vấn
+            class="flex items-center gap-2 bg-slate-900/90 hover:bg-black text-white font-bold px-5 py-2.5 rounded-xl text-sm transition border border-slate-700">
+            <MessageCircle class="w-4 h-4 text-blue-400" /> Zalo Tư Vấn
           </a>
         </div>
       </div>
     </section>
 
     <!-- ═══ TRUST BAR ════════════════════════════════════════════════════════ -->
-    <div class="bg-red-600 text-white py-2.5 px-4">
+    <div class="bg-red-600 text-white py-2.5 px-4 shadow-lg">
       <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-5 text-xs font-bold">
         <span class="flex items-center gap-1.5"><CheckCircle2 class="w-3.5 h-3.5 shrink-0" /> Cam kết CO/CQ đầy đủ</span>
         <span class="text-red-300 hidden sm:inline">|</span>
@@ -172,54 +172,49 @@ const news = [
     </div>
 
     <!-- ═══ SẢN PHẨM (CATEGORY GRID) ════════════════════════════════════════ -->
-    <section class="py-12 px-4 max-w-7xl mx-auto">
+    <section class="py-12 px-4 max-w-7xl mx-auto border-b border-slate-900">
       <div class="mb-8 flex items-end justify-between">
         <div>
           <div class="flex items-center gap-2 mb-1">
-            <span class="w-1 h-6 bg-red-600 rounded-full"></span>
-            <h2 class="text-2xl md:text-3xl font-black text-slate-800 tracking-tight uppercase">Sản Phẩm</h2>
+            <span class="w-1.5 h-6 bg-red-600 rounded-full"></span>
+            <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight uppercase">Sản Phẩm</h2>
           </div>
-          <p class="text-slate-500 text-sm ml-3 pl-2 border-l-2 border-slate-200">
+          <p class="text-slate-400 text-sm ml-3 pl-2 border-l-2 border-slate-800">
             Nhấp vào danh mục để xem đầy đủ sản phẩm và báo giá chi tiết
           </p>
         </div>
         <button @click="goToProducts(categories[0]?.id)"
-          class="hidden sm:flex items-center gap-1.5 text-sm font-bold text-teal-700 hover:text-red-600 transition">
+          class="hidden sm:flex items-center gap-1.5 text-sm font-bold text-yellow-400 hover:text-red-500 transition">
           Xem tất cả <ArrowRight class="w-4 h-4" />
         </button>
       </div>
 
-      <!-- Skeleton -->
-      <div v-if="categories.length === 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
-        <div v-for="i in 6" :key="i" class="rounded-xl bg-slate-100 animate-pulse" style="padding-bottom:66%"></div>
-      </div>
-
       <!-- Category Cards -->
-      <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
         <button
           v-for="(cat, idx) in categories"
           :key="cat.id"
           @click="goToProducts(cat.id)"
-          class="group rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 hover:border-teal-400 cursor-pointer text-left focus:outline-none"
+          class="group rounded-2xl overflow-hidden shadow-xl transition-all duration-300 border border-slate-800 bg-slate-900 hover:border-red-500 hover:-translate-y-1 cursor-pointer text-left focus:outline-none"
         >
           <div class="relative overflow-hidden" style="padding-bottom:66%">
             <img
               :src="CATEGORY_META[cat.code]?.image || 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80'"
               :alt="cat.name"
-              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
             <!-- Watermark -->
-            <div class="absolute bottom-0 left-0 right-0 flex items-center gap-1 px-2.5 py-1.5 bg-teal-800/90">
-              <span class="w-5 h-5 bg-white rounded text-[8px] font-black text-teal-800 flex items-center justify-center shrink-0">VT</span>
+            <div class="absolute bottom-0 left-0 right-0 flex items-center gap-1 px-2.5 py-1.5 bg-slate-950/90 border-t border-slate-800">
+              <span class="w-5 h-5 bg-red-600 rounded text-[8px] font-black text-white flex items-center justify-center shrink-0">VT</span>
               <span class="text-white text-[10px] font-bold">THÉP VIỆT TÍN</span>
             </div>
           </div>
-          <div class="bg-white px-3 py-2.5 flex items-center justify-between">
-            <span class="font-black text-slate-800 text-sm group-hover:text-teal-700 transition uppercase tracking-wide leading-tight">
+          <div class="bg-slate-900 px-3.5 py-3 flex items-center justify-between">
+            <span class="font-black text-white text-sm group-hover:text-yellow-400 transition uppercase tracking-wide leading-tight">
               {{ cat.name }}
             </span>
-            <ArrowRight class="w-3.5 h-3.5 text-slate-400 group-hover:text-teal-600 group-hover:translate-x-0.5 transition-all shrink-0" />
+            <ArrowRight class="w-3.5 h-3.5 text-slate-400 group-hover:text-red-500 group-hover:translate-x-0.5 transition-all shrink-0" />
           </div>
         </button>
       </div>

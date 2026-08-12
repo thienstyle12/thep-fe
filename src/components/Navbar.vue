@@ -26,25 +26,25 @@ const handleCategoryClick = (catId: number | null) => {
 </script>
 
 <template>
-  <header class="sticky top-0 z-40 bg-white shadow-sm border-b border-slate-200">
+  <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md shadow-xl border-b border-slate-800 text-white">
     <!-- Top Bar -->
-    <div class="bg-teal-800 text-white py-1.5 px-4 sm:px-6 text-xs">
+    <div class="bg-slate-950 text-white py-1.5 px-4 sm:px-6 text-xs border-b border-slate-800/80">
       <div class="max-w-7xl mx-auto flex justify-between items-center">
         <div class="flex items-center space-x-4 sm:space-x-6">
-          <a href="tel:0932283783" class="flex items-center gap-1.5 hover:text-yellow-300 transition">
-            <Phone class="w-3.5 h-3.5 text-yellow-400" />
-            Hotline Báo Giá: <strong class="text-yellow-300 font-black ml-1">093 228 37 83</strong>
+          <a href="tel:0932283783" class="flex items-center gap-1.5 hover:text-yellow-400 transition">
+            <Phone class="w-3.5 h-3.5 text-red-500" />
+            Hotline Báo Giá: <strong class="text-yellow-400 font-black ml-1">093 228 37 83</strong>
           </a>
-          <span class="hidden md:inline text-teal-200/80">| Email: thepviettin@gmail.com</span>
+          <span class="hidden md:inline text-slate-400">| Email: thepviettin@gmail.com</span>
         </div>
         <div class="flex items-center space-x-3">
           <button
             @click="modals.isTrackingOpen = true"
-            class="text-yellow-300 hover:text-white font-bold flex items-center gap-1 text-[11px] underline"
+            class="text-yellow-400 hover:text-white font-bold flex items-center gap-1 text-[11px] underline"
           >
             <Search class="w-3.5 h-3.5" /> Tra Cứu Đơn Hàng
           </button>
-          <span class="hidden sm:inline font-black text-yellow-400 uppercase tracking-widest text-[11px]">
+          <span class="hidden sm:inline font-black text-red-500 uppercase tracking-widest text-[11px]">
             | CHẤT LƯỢNG TẠO NIỀM TIN
           </span>
         </div>
@@ -55,20 +55,20 @@ const handleCategoryClick = (catId: number | null) => {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center gap-4">
       <!-- Logo -->
       <RouterLink to="/" class="flex items-center space-x-2.5 group shrink-0">
-        <div class="w-10 h-10 bg-teal-900 text-white font-black text-xl rounded-xl flex items-center justify-center border-2 border-red-600 shadow-md group-hover:scale-105 transition duration-300">
+        <div class="w-10 h-10 bg-slate-950 text-white font-black text-xl rounded-xl flex items-center justify-center border-2 border-red-600 shadow-md group-hover:scale-105 transition duration-300">
           VT
         </div>
         <div class="whitespace-nowrap">
-          <h2 class="text-xl font-black text-slate-900 tracking-tight leading-none">THÉP VIỆT TÍN</h2>
-          <span class="text-[9px] text-red-600 font-extrabold uppercase tracking-widest block mt-0.5">
+          <h2 class="text-xl font-black text-white tracking-tight leading-none">THÉP VIỆT TÍN</h2>
+          <span class="text-[9px] text-red-500 font-extrabold uppercase tracking-widest block mt-0.5">
             Nhà Phân Phối Thép Công Trình
           </span>
         </div>
       </RouterLink>
 
       <!-- Nav Links -->
-      <nav class="hidden lg:flex items-center space-x-4 xl:space-x-6 font-semibold text-slate-700 text-sm whitespace-nowrap">
-        <RouterLink to="/" class="hover:text-red-600 transition">Trang Chủ</RouterLink>
+      <nav class="hidden lg:flex items-center space-x-4 xl:space-x-6 font-semibold text-slate-200 text-sm whitespace-nowrap">
+        <RouterLink to="/" class="hover:text-yellow-400 transition">Trang Chủ</RouterLink>
 
         <!-- Dropdown SẢN PHẨM -->
         <div
@@ -78,31 +78,31 @@ const handleCategoryClick = (catId: number | null) => {
         >
           <button
             @click="isDropdownOpen = !isDropdownOpen"
-            class="flex items-center gap-1 hover:text-red-600 transition py-2 font-extrabold whitespace-nowrap"
+            class="flex items-center gap-1 hover:text-yellow-400 transition py-2 font-extrabold whitespace-nowrap text-white"
           >
-            <Layers class="w-4 h-4 text-red-600" />
+            <Layers class="w-4 h-4 text-red-500" />
             <span>SẢN PHẨM</span>
-            <ChevronDown class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" />
+            <ChevronDown class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-slate-400" />
           </button>
 
           <!-- Dropdown List -->
           <Transition name="fade-drop">
             <div
               v-if="isDropdownOpen"
-              class="absolute top-full left-0 w-64 bg-white rounded-xl shadow-2xl border border-slate-200 py-2 px-2 z-50"
+              class="absolute top-full left-0 w-64 bg-slate-900 rounded-2xl shadow-2xl border border-slate-800 py-2 px-2 z-50 text-slate-200"
             >
               <button
                 @click="handleCategoryClick(null)"
-                class="w-full text-left block px-3.5 py-2 rounded-xl text-xs font-black text-slate-800 hover:bg-red-50 hover:text-red-600 transition"
+                class="w-full text-left block px-3.5 py-2.5 rounded-xl text-xs font-black text-white hover:bg-red-600 transition"
               >
                 ★ Tất Cả Sản Phẩm Thép
               </button>
-              <div class="h-px bg-slate-100 my-1"></div>
+              <div class="h-px bg-slate-800 my-1"></div>
               <button
                 v-for="c in categories"
                 :key="c.id"
                 @click="handleCategoryClick(c.id)"
-                class="w-full text-left block px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-red-50 hover:text-red-600 transition"
+                class="w-full text-left block px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:bg-slate-800 hover:text-yellow-400 transition"
               >
                 ➔ {{ c.name }}
               </button>
@@ -110,9 +110,9 @@ const handleCategoryClick = (catId: number | null) => {
           </Transition>
         </div>
 
-        <RouterLink to="/products" class="hover:text-red-600 transition">Bảng Giá</RouterLink>
-        <a href="/#about" class="hover:text-red-600 transition">Về Chúng Tôi</a>
-        <a href="/#contact" class="hover:text-red-600 transition">Liên Hệ</a>
+        <RouterLink to="/products" class="hover:text-yellow-400 transition">Bảng Giá</RouterLink>
+        <a href="/#about" class="hover:text-yellow-400 transition">Về Chúng Tôi</a>
+        <a href="/#contact" class="hover:text-yellow-400 transition">Liên Hệ</a>
       </nav>
 
       <!-- Action Buttons -->
