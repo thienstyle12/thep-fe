@@ -12,6 +12,8 @@ import NotificationModal from './components/NotificationModal.vue';
 import PartnerBrands from './components/PartnerBrands.vue';
 import ProjectGallery from './components/ProjectGallery.vue';
 import MarketNews from './components/MarketNews.vue';
+import CategoryGrid from './components/CategoryGrid.vue';
+import CommitmentCards from './components/CommitmentCards.vue';
 import { useNotification } from './composables/useNotification';
 import { useCartStore } from './stores/cart';
 
@@ -71,6 +73,12 @@ const fetchProducts = async () => {
 const selectCategory = (id: number | null) => {
   selectedCategoryId.value = id;
   fetchProducts();
+  setTimeout(() => {
+    const el = document.getElementById('products');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, 50);
 };
 
 const filteredProducts = computed(() => {
@@ -97,7 +105,7 @@ onMounted(() => {
 <template>
   <div class="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-red-600 selection:text-white">
     <!-- Top Navigation Header -->
-    <Navbar @open-cart="isCartOpen = true" @open-admin="isAdminOpen = true" @open-tracking="isTrackingOpen = true" />
+    <Navbar :categories="categories" @select-category="selectCategory" @open-cart="isCartOpen = true" @open-admin="isAdminOpen = true" @open-tracking="isTrackingOpen = true" />
 
     <!-- Hero Banner -->
     <section class="bg-slate-950 text-white py-16 md:py-24 px-6 relative overflow-hidden">
@@ -159,6 +167,9 @@ onMounted(() => {
       </div>
     </section>
 
+    <!-- Visual Category Grid Showcase (Inspired by theptranlong.vn) -->
+    <CategoryGrid :categories="categories" @select-category="selectCategory" />
+
     <!-- Value Propositions -->
     <section class="bg-white border-b border-slate-200 py-8 px-6 shadow-sm">
       <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -196,6 +207,9 @@ onMounted(() => {
 
     <!-- Partner Brands Section -->
     <PartnerBrands />
+
+    <!-- Commitment Cards Section (Inspired by theptranlong.vn) -->
+    <CommitmentCards />
 
     <!-- STEEL WEIGHT CALCULATOR SECTION -->
     <section class="max-w-7xl mx-auto px-6">

@@ -1,27 +1,39 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useCartStore } from '../stores/cart';
-import { ShoppingCart, Phone, ShieldCheck, ClipboardList, Search } from 'lucide-vue-next';
+import { ShoppingCart, Phone, ShieldCheck, ClipboardList, Search, ChevronDown, Layers } from 'lucide-vue-next';
 
-defineEmits(['open-cart', 'open-admin', 'open-tracking']);
+const props = defineProps<{
+  categories?: any[];
+}>();
+
+const emit = defineEmits(['open-cart', 'open-admin', 'open-tracking', 'select-category']);
 const cartStore = useCartStore();
+
+const isDropdownOpen = ref(false);
+
+const handleCategoryClick = (catId: number | null) => {
+  isDropdownOpen.value = false;
+  emit('select-category', catId);
+};
 </script>
 
 <template>
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-md border-b border-slate-100">
-    <!-- Top Bar -->
-    <div class="bg-slate-950 text-white py-2 px-6 text-xs sm:text-sm">
+    <!-- Top Bar Header (Teal / Dark Steel Bar like theptranlong.vn) -->
+    <div class="bg-teal-900 text-white py-2 px-6 text-xs sm:text-sm">
       <div class="max-w-7xl mx-auto flex justify-between items-center">
         <div class="flex items-center space-x-6">
-          <a href="tel:0932283783" class="flex items-center gap-1 hover:text-yellow-400 transition">
-            <Phone class="w-3.5 h-3.5 text-red-500" /> Hotline Kinh Doanh: <strong class="text-yellow-400">093 228 37 83</strong>
+          <a href="tel:0932283783" class="flex items-center gap-1.5 hover:text-yellow-300 transition">
+            <Phone class="w-3.5 h-3.5 text-yellow-400" /> Hotline Báo Giá: <strong class="text-yellow-300 font-black">093 228 37 83</strong>
           </a>
-          <span class="hidden md:inline text-slate-400">| Email: thepviettin@gmail.com</span>
+          <span class="hidden md:inline text-teal-200/80">| Email: thepviettin@gmail.com</span>
         </div>
         <div class="flex items-center space-x-4">
-          <button @click="$emit('open-tracking')" class="text-yellow-400 hover:text-white font-bold flex items-center gap-1 text-[11px] underline">
-            <Search class="w-3.5 h-3.5 text-yellow-400" /> Tra Cứu Đơn Hàng
+          <button @click="$emit('open-tracking')" class="text-yellow-300 hover:text-white font-bold flex items-center gap-1 text-[11px] underline">
+            <Search class="w-3.5 h-3.5 text-yellow-300" /> Tra Cứu Đơn Hàng
           </button>
-          <span class="hidden sm:inline font-bold text-red-500 uppercase tracking-widest text-[11px]">| CHẤT LƯỢNG TẠO NIỀM TIN</span>
+          <span class="hidden sm:inline font-black text-yellow-400 uppercase tracking-widest text-[11px]">| CHẤT LƯỢNG TẠO NIỀM TIN</span>
         </div>
       </div>
     </div>
@@ -30,7 +42,7 @@ const cartStore = useCartStore();
     <div class="max-w-7xl mx-auto px-6 py-3.5 flex justify-between items-center">
       <!-- Logo & Slogan -->
       <a href="#" class="flex items-center space-x-3 group">
-        <div class="w-11 h-11 bg-slate-950 text-white font-black text-2xl rounded-xl flex items-center justify-center border-2 border-red-600 shadow-md group-hover:scale-105 transition duration-300">
+        <div class="w-11 h-11 bg-teal-900 text-white font-black text-2xl rounded-xl flex items-center justify-center border-2 border-red-600 shadow-md group-hover:scale-105 transition duration-300">
           VT
         </div>
         <div>
@@ -39,13 +51,57 @@ const cartStore = useCartStore();
         </div>
       </a>
 
-      <!-- Nav Links -->
+      <!-- Nav Links with Dropdown Menu -->
       <nav class="hidden lg:flex items-center space-x-8 font-bold text-slate-700 text-sm">
-        <a href="#products" class="hover:text-red-600 transition">Sản Phẩm Thép</a>
+        <a href="#products" @click="handleCategoryClick(null)" class="hover:text-red-600 transition">Trang Chủ</a>
+
+        <!-- Dropdown for SẢN PHẨM -->
+        <div 
+          class="relative group"
+          @mouseenter="isDropdownOpen = true"
+          @mouseleave="isDropdownOpen = false"
+        >
+          <button 
+            @click="isDropdownOpen = !isDropdownOpen"
+            class="flex items-center gap-1 hover:text-red-600 transition py-2 font-extrabold"
+          >
+            <Layers class="w-4 h-4 text-red-600" />
+            <span>SẢN PHẨM THÉP</span>
+            <ChevronDown class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
+          </button>
+
+          <!-- Dropdown List -->
+          <Transition name="fade-drop">
+            <div 
+              v-if="isDropdownOpen"
+              class="absolute top-full left-0 w-64 bg-white rounded-2xl shadow-2xl border border-slate-200 py-3 px-2 z-50 transform"
+            >
+              <a 
+                href="#products"
+                @click="handleCategoryClick(null)"
+                class="block px-4 py-2.5 rounded-xl text-xs font-black text-slate-800 hover:bg-red-50 hover:text-red-600 transition"
+              >
+                ★ Tất Cả Sản Phẩm Thép
+              </a>
+              <div class="h-px bg-slate-100 my-1"></div>
+              <a 
+                v-for="c in categories" 
+                :key="c.id"
+                href="#products"
+                @click="handleCategoryClick(c.id)"
+                class="block px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-red-50 hover:text-red-600 transition"
+              >
+                ➔ {{ c.name }}
+              </a>
+            </div>
+          </Transition>
+        </div>
+
         <a href="#calculator" class="hover:text-red-600 transition flex items-center gap-1">
           🧮 Tính Trọng Lượng
         </a>
-        <a href="#about" class="hover:text-red-600 transition">Về Chúng Tôi</a>
+        <a href="#projects" class="hover:text-red-600 transition">Dự Án Tiêu Biểu</a>
+        <a href="#about" class="hover:text-red-600 transition">Về Thép Việt Tín</a>
         <a href="#contact" class="hover:text-red-600 transition">Liên Hệ Kho</a>
       </nav>
 
@@ -79,3 +135,16 @@ const cartStore = useCartStore();
     </div>
   </header>
 </template>
+
+<style scoped>
+.fade-drop-enter-active,
+.fade-drop-leave-active {
+  transition: all 0.2s ease-out;
+}
+
+.fade-drop-enter-from,
+.fade-drop-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+</style>
