@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import axios from 'axios';
+import api from '../api';
 import {
   X, Plus, Edit3, Trash2, Package, ShoppingBag,
   Search, RefreshCw, CheckCircle2, ChevronDown,
@@ -80,7 +80,7 @@ const filteredProducts = computed(() => {
 const fetchProducts = async () => {
   isLoadingProducts.value = true;
   try {
-    const res = await axios.get('http://localhost:8080/api/products/admin');
+    const res = await api.get('/products/admin');
     products.value = res.data;
   } catch (err) {
     console.error('fetchProducts error', err);
@@ -91,7 +91,7 @@ const fetchProducts = async () => {
 
 const fetchCategories = async () => {
   try {
-    const res = await axios.get('http://localhost:8080/api/categories');
+    const res = await api.get('/categories');
     categories.value = res.data;
   } catch (err) {
     console.error('fetchCategories error', err);
@@ -173,9 +173,9 @@ const saveProduct = async () => {
   isSaving.value = true;
   try {
     if (formMode.value === 'edit' && editingId.value) {
-      await axios.put(`http://localhost:8080/api/products/${editingId.value}`, form.value);
+      await api.put(`/products/${editingId.value}`, form.value);
     } else {
-      await axios.post('http://localhost:8080/api/products', form.value);
+      await api.post('/products', form.value);
     }
     saveSuccess.value = true;
     await fetchProducts();
@@ -194,7 +194,7 @@ const deleteProduct = async (id?: number) => {
   if (!id) return;
   if (!confirm('Xác nhận XÓA sản phẩm thép này khỏi hệ thống?')) return;
   try {
-    await axios.delete(`http://localhost:8080/api/products/${id}`);
+    await api.delete(`/products/${id}`);
     await fetchProducts();
     emit('product-updated');
   } catch (err) {
@@ -225,7 +225,7 @@ const orderCounts = computed(() => ({
 const fetchOrders = async () => {
   isLoadingOrders.value = true;
   try {
-    const res = await axios.get('http://localhost:8080/api/orders');
+    const res = await api.get('/orders');
     orders.value = res.data;
   } catch (err) {
     console.error('fetchOrders error', err);
@@ -236,7 +236,7 @@ const fetchOrders = async () => {
 
 const updateOrderStatus = async (orderId: number, status: string) => {
   try {
-    await axios.patch(`http://localhost:8080/api/orders/${orderId}/status?status=${status}`);
+    await api.patch(`/orders/${orderId}/status?status=${status}`);
     await fetchOrders();
   } catch (err) {
     alert('Không thể cập nhật trạng thái đơn hàng!');

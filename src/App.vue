@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import axios from 'axios';
+import api from './api';
 import Navbar from './components/Navbar.vue';
 import CartDrawer from './components/CartDrawer.vue';
 import SteelCalculator from './components/SteelCalculator.vue';
@@ -39,7 +39,7 @@ const openDetail = (p: Product) => {
 
 const fetchCategories = async () => {
   try {
-    const res = await axios.get('http://localhost:8080/api/categories');
+    const res = await api.get('/categories');
     categories.value = res.data;
   } catch (err) {
     console.error('Error fetching categories', err);
@@ -50,9 +50,9 @@ const fetchProducts = async () => {
   isLoadingProducts.value = true;
   try {
     const url = selectedCategoryId.value
-      ? `http://localhost:8080/api/products?categoryId=${selectedCategoryId.value}`
-      : 'http://localhost:8080/api/products';
-    const res = await axios.get(url);
+      ? `/products?categoryId=${selectedCategoryId.value}`
+      : '/products';
+    const res = await api.get(url);
     products.value = res.data;
   } catch (err) {
     console.error('Error fetching products', err);

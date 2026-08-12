@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useCartStore } from '../stores/cart';
 import { X, Trash2, CheckCircle } from 'lucide-vue-next';
-import axios from 'axios';
+import api from '../api';
 
 defineProps<{ isOpen: boolean }>();
 const emit = defineEmits(['close']);
@@ -42,7 +42,7 @@ const handleCheckout = async () => {
       }))
     };
 
-    const res = await axios.post('http://localhost:8080/api/orders', payload);
+    const res = await api.post('/orders', payload);
     orderCode.value = res.data.orderCode;
     orderSuccess.value = true;
     cartStore.clearCart();

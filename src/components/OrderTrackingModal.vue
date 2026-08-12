@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import axios from 'axios';
+import api from '../api';
 import { X, Search, Clock, Truck, CheckCircle, AlertCircle, Phone, Package, MapPin } from 'lucide-vue-next';
 
 defineProps<{ isOpen: boolean }>();
@@ -16,7 +16,7 @@ const handleSearch = async () => {
   isSearching.value = true;
   searched.value = true;
   try {
-    const res = await axios.get(`http://localhost:8080/api/orders/track?query=${encodeURIComponent(searchQuery.value.trim())}`);
+    const res = await api.get(`/orders/track?query=${encodeURIComponent(searchQuery.value.trim())}`);
     orders.value = res.data;
   } catch (err) {
     console.error('Error tracking order', err);
