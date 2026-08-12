@@ -70,11 +70,11 @@ const formatDate = (s: string) => (s ? new Date(s).toLocaleString('vi-VN') : '')
         <!-- Header -->
         <div class="px-6 py-5 bg-slate-950 text-white flex items-center justify-between flex-shrink-0">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center font-black text-lg shadow-md">
+            <div class="w-10 h-10 rounded-xl bg-[#006a64] flex items-center justify-center font-black text-lg shadow-md">
               VT
             </div>
             <div>
-              <span class="text-[10px] font-black text-red-500 uppercase tracking-widest block">Thép Việt Tín</span>
+              <span class="text-[10px] font-black text-teal-400 uppercase tracking-widest block">Thép Việt Tín</span>
               <h3 class="text-xl font-black leading-tight">TRA CỨU TIẾN ĐỘ ĐƠN HÀNG</h3>
             </div>
           </div>
@@ -96,13 +96,13 @@ const formatDate = (s: string) => (s ? new Date(s).toLocaleString('vi-VN') : '')
                 @keyup.enter="handleSearch"
                 type="text"
                 placeholder="Nhập mã đơn hàng hoặc SĐT của bạn..."
-                class="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-2xl text-sm font-semibold outline-none focus:ring-2 focus:ring-red-500 shadow-sm"
+                class="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-2xl text-sm font-semibold outline-none focus:ring-2 focus:ring-[#006a64] focus:border-[#006a64] shadow-sm"
               />
             </div>
             <button
               @click="handleSearch"
               :disabled="isSearching"
-              class="bg-red-600 hover:bg-red-700 text-white font-extrabold px-6 py-3 rounded-2xl text-xs uppercase shadow-md transition flex items-center gap-2 whitespace-nowrap">
+              class="bg-[#006a64] hover:bg-[#00544f] text-white font-extrabold px-6 py-3 rounded-2xl text-xs uppercase shadow-md transition flex items-center gap-2 whitespace-nowrap">
               <span>{{ isSearching ? 'Đang tìm...' : 'Tra Cứu' }}</span>
             </button>
           </div>

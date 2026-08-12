@@ -152,7 +152,7 @@ const handleAddToCart = () => {
   <div id="calculator" class="bg-slate-900 text-white rounded-3xl p-6 md:p-10 shadow-2xl border border-slate-800 my-12">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
       <div>
-        <span class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 border border-red-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+        <span class="inline-flex items-center gap-2 bg-[#006a64]/20 text-teal-300 border border-[#006a64]/40 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
           <Calculator class="w-4 h-4" /> Tiện ích kĩ sư & công trình
         </span>
         <h3 class="text-2xl md:text-3xl font-black text-white">BỘ TÍNH TRỌNG LƯỢNG THÉP</h3>
@@ -163,22 +163,22 @@ const handleAddToCart = () => {
       <div class="flex p-1 bg-slate-800/80 rounded-xl border border-slate-700 w-full md:w-auto overflow-x-auto">
         <button 
           @click="activeTab = 'rebar'" 
-          :class="['flex-1 md:flex-none px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap', activeTab === 'rebar' ? 'bg-red-600 text-white shadow' : 'text-slate-400 hover:text-white']">
+          :class="['flex-1 md:flex-none px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap', activeTab === 'rebar' ? 'bg-[#006a64] text-white shadow' : 'text-slate-400 hover:text-white']">
           Thép Cây / Cuộn
         </button>
         <button 
           @click="activeTab = 'tube'" 
-          :class="['flex-1 md:flex-none px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap', activeTab === 'tube' ? 'bg-red-600 text-white shadow' : 'text-slate-400 hover:text-white']">
+          :class="['flex-1 md:flex-none px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap', activeTab === 'tube' ? 'bg-[#006a64] text-white shadow' : 'text-slate-400 hover:text-white']">
           Thép Hộp
         </button>
         <button 
           @click="activeTab = 'plate'" 
-          :class="['flex-1 md:flex-none px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap', activeTab === 'plate' ? 'bg-red-600 text-white shadow' : 'text-slate-400 hover:text-white']">
+          :class="['flex-1 md:flex-none px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap', activeTab === 'plate' ? 'bg-[#006a64] text-white shadow' : 'text-slate-400 hover:text-white']">
           Thép Tấm
         </button>
         <button 
           @click="activeTab = 'structural'" 
-          :class="['flex-1 md:flex-none px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap', activeTab === 'structural' ? 'bg-red-600 text-white shadow' : 'text-slate-400 hover:text-white']">
+          :class="['flex-1 md:flex-none px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap', activeTab === 'structural' ? 'bg-[#006a64] text-white shadow' : 'text-slate-400 hover:text-white']">
           Thép Góc V / Hình
         </button>
       </div>
@@ -195,7 +195,7 @@ const handleAddToCart = () => {
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Đường kính (D - mm)</label>
-              <select v-model="rebarDiameter" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none">
+              <select v-model="rebarDiameter" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none">
                 <option :value="6">D6 (Ø 6mm)</option>
                 <option :value="8">D8 (Ø 8mm)</option>
                 <option :value="10">D10 (Ø 10mm)</option>
@@ -212,18 +212,18 @@ const handleAddToCart = () => {
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Chiều dài cây (L - mét)</label>
-              <input v-model.number="rebarLength" type="number" step="0.1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="rebarLength" type="number" step="0.1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Số lượng cây</label>
-              <input v-model.number="rebarQuantity" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="rebarQuantity" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Đơn giá tham khảo (VNĐ / Kg)</label>
-              <input v-model.number="rebarPricePerKg" type="number" step="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="rebarPricePerKg" type="number" step="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
           </div>
         </div>
@@ -233,30 +233,30 @@ const handleAddToCart = () => {
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Cạnh A (mm)</label>
-              <input v-model.number="tubeWidth" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="tubeWidth" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Cạnh B (mm)</label>
-              <input v-model.number="tubeHeight" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="tubeHeight" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Độ dày (t - mm)</label>
-              <input v-model.number="tubeThickness" type="number" step="0.1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="tubeThickness" type="number" step="0.1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Chiều dài (m)</label>
-              <input v-model.number="tubeLength" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="tubeLength" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Số lượng cây</label>
-              <input v-model.number="tubeQuantity" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="tubeQuantity" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Giá (VNĐ / Kg)</label>
-              <input v-model.number="tubePricePerKg" type="number" step="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="tubePricePerKg" type="number" step="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
           </div>
         </div>
@@ -266,26 +266,26 @@ const handleAddToCart = () => {
           <div class="grid grid-cols-3 gap-3">
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Độ dày (mm)</label>
-              <input v-model.number="plateThickness" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="plateThickness" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Chiều rộng (m)</label>
-              <input v-model.number="plateWidth" type="number" step="0.1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="plateWidth" type="number" step="0.1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Chiều dài (m)</label>
-              <input v-model.number="plateLength" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="plateLength" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Số lượng tấm</label>
-              <input v-model.number="plateQuantity" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="plateQuantity" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Giá (VNĐ / Kg)</label>
-              <input v-model.number="platePricePerKg" type="number" step="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="platePricePerKg" type="number" step="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
           </div>
         </div>
@@ -295,26 +295,26 @@ const handleAddToCart = () => {
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Cánh V (mm)</label>
-              <input v-model.number="vSide" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="vSide" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Độ dày (t - mm)</label>
-              <input v-model.number="vThickness" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="vThickness" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Chiều dài (m)</label>
-              <input v-model.number="structuralLength" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="structuralLength" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Số lượng cây</label>
-              <input v-model.number="structuralQuantity" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="structuralQuantity" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Giá (VNĐ / Kg)</label>
-              <input v-model.number="structuralPricePerKg" type="number" step="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-red-500 focus:outline-none"/>
+              <input v-model.number="structuralPricePerKg" type="number" step="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
             </div>
           </div>
         </div>
@@ -325,9 +325,9 @@ const handleAddToCart = () => {
       </div>
 
       <!-- Results & Action Card -->
-      <div class="lg:col-span-5 bg-gradient-to-br from-red-600/90 to-red-800 p-6 md:p-8 rounded-2xl flex flex-col justify-between shadow-xl relative overflow-hidden">
+      <div class="lg:col-span-5 bg-gradient-to-br from-[#006a64] to-[#004e4a] p-6 md:p-8 rounded-2xl flex flex-col justify-between shadow-xl relative overflow-hidden">
         <div class="relative z-10">
-          <span class="text-xs font-bold text-red-200 uppercase tracking-widest block mb-1">Kết quả tính toán</span>
+          <span class="text-xs font-bold text-teal-200 uppercase tracking-widest block mb-1">Kết quả tính toán</span>
           <h4 class="text-xl font-black text-white mb-6">TỔNG KHỐI LƯỢNG & CHI PHÍ</h4>
 
           <div class="space-y-4 mb-6">
@@ -342,7 +342,7 @@ const handleAddToCart = () => {
               <span class="text-sm font-medium text-slate-200">TỔNG KHỐI LƯỢNG:</span>
               <div class="text-right">
                 <span class="text-2xl font-black text-white block">{{ currentWeight.toFixed(1) }} Kg</span>
-                <span class="text-xs text-red-200 font-mono">~ {{ (currentWeight / 1000).toFixed(3) }} Tấn</span>
+                <span class="text-xs text-teal-200 font-mono">~ {{ (currentWeight / 1000).toFixed(3) }} Tấn</span>
               </div>
             </div>
 
@@ -357,13 +357,13 @@ const handleAddToCart = () => {
           @click="handleAddToCart"
           :class="[
             'w-full py-4 rounded-xl font-black uppercase text-sm shadow-2xl transition flex items-center justify-center gap-2 relative z-10',
-            addedNotice ? 'bg-green-600 text-white' : 'bg-slate-900 hover:bg-black text-white'
+            addedNotice ? 'bg-emerald-600 text-white' : 'bg-slate-900 hover:bg-black text-white'
           ]">
           <template v-if="addedNotice">
             <Check class="w-5 h-5" /> Đã thêm vào Giỏ Báo Giá!
           </template>
           <template v-else>
-            <PlusCircle class="w-5 h-5 text-red-500" /> Thêm kết quả vào Giỏ Báo Giá
+            <PlusCircle class="w-5 h-5 text-teal-300" /> Thêm kết quả vào Giỏ Báo Giá
           </template>
         </button>
       </div>

@@ -101,7 +101,7 @@ onUnmounted(() => {
               </span>
 
               <h2 class="text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-white">
-                {{ slide.title }} <span class="text-yellow-400 underline decoration-red-600 decoration-4">{{ slide.highlight }}</span> {{ slide.titleEnd }}
+                {{ slide.title }} <span class="text-yellow-400 underline decoration-[#006a64] decoration-4">{{ slide.highlight }}</span> {{ slide.titleEnd }}
               </h2>
 
               <p class="text-teal-100/90 text-base md:text-lg leading-relaxed max-w-2xl font-normal">
@@ -111,7 +111,7 @@ onUnmounted(() => {
               <div class="flex flex-wrap gap-4 items-center pt-2">
                 <a 
                   href="#products" 
-                  class="bg-red-600 hover:bg-red-700 text-white font-black px-8 py-4 rounded-2xl shadow-xl shadow-red-600/30 hover:scale-105 transition duration-300 uppercase tracking-wide text-sm flex items-center gap-2"
+                  class="bg-[#006a64] hover:bg-[#00544f] text-white font-black px-8 py-4 rounded-2xl shadow-xl shadow-[#006a64]/30 hover:scale-105 transition duration-300 uppercase tracking-wide text-sm flex items-center gap-2"
                 >
                   {{ slide.primaryBtn }} <ArrowRight class="w-4 h-4" />
                 </a>
@@ -152,7 +152,7 @@ onUnmounted(() => {
                 <div class="absolute bottom-6 left-6 right-6 p-4 bg-teal-900/90 backdrop-blur-md rounded-2xl border border-teal-700/60 shadow-xl">
                   <div class="flex justify-between items-center text-xs font-bold mb-1">
                     <span class="text-yellow-400 uppercase tracking-widest">Kho Hàng Sẵn Có</span>
-                    <span class="bg-red-600 text-white px-3 py-0.5 rounded-full font-black text-[11px]">{{ slide.badge }}</span>
+                    <span class="bg-[#006a64] text-white px-3 py-0.5 rounded-full font-black text-[11px]">{{ slide.badge }}</span>
                   </div>
                   <p class="text-white text-sm font-black">Kho tổng Thép Việt Tín — Hỗ trợ vận chuyển ngay trong ngày</p>
                 </div>
