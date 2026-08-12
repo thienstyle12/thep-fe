@@ -37,19 +37,19 @@ const CATEGORY_META: Record<string, { image: string; desc: string }> = {
     desc: 'Thép cây CB300V, CB400V, Thép cuộn D6-D32 Hòa Phát, VIS, Pomina',
   },
   DAY_THAP_RUT: {
-    image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEOE28fjiyzdx9HrFSliSym9zHPDA6MVUGu4r69SIk9A&s=10',
     desc: 'Dây buộc 1 ly, Thép rút đen D1-D10, Dây kẽm mạ bóng công trình',
   },
   LUOI_THAP: {
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE-VslPqgNpfQSa5vPAHMHEDaJufrL4aI1-9h78ZB47Q&s=10',
     desc: 'Lưới trát tường chống nứt, Lưới thép hàn D4-D10 ô 100×100mm',
   },
   THAP_HOP: {
-    image: 'https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?w=800&q=80',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVVkAaoghY71x8ba7zpo1L5tfwt_hK9KjCrU3O2mZsqA&s=10',
     desc: 'Thép hộp mạ kẽm vuông 40×40, 50×100, Xà gồ C, Z mạ kẽm',
   },
   THAP_HINH: {
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf71CyLsLGWRl3bOeuBxwuGquUHqQ2cRPJwx0WF0E_g&s=10',
     desc: 'Thép V góc, Thép I150, I200, Thép U, thép tấm kết cấu',
   },
 };
@@ -113,7 +113,7 @@ const news = [
   {
     title: 'Thép cuộn CB300V vs CB400V: Khác nhau như thế nào, dùng cho công trình nào?',
     date: '08/08/2026',
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80',
+    image: 'https://thepnhatlong.com/wp-content/uploads/2025/03/Thep-CB400-Dung-De-Lam-Gi.png',
     tag: 'Tư Vấn',
   },
 ];
