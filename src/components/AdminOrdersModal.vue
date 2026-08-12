@@ -3,7 +3,7 @@ import { ref, computed, watch } from 'vue';
 import api from '../api';
 import { useNotification } from '../composables/useNotification';
 
-const { showNotification } = useNotification();
+const { showNotification, showConfirm } = useNotification();
 import {
   X, Plus, Edit3, Trash2, Package, ShoppingBag,
   Search, RefreshCw, CheckCircle2, ChevronDown,
@@ -195,17 +195,23 @@ const saveProduct = async () => {
   }
 };
 
-const deleteProduct = async (id?: number) => {
+const deleteProduct = (id?: number) => {
   if (!id) return;
-  if (!confirm('Xác nhận XÓA sản phẩm thép này khỏi hệ thống?')) return;
-  try {
-    await api.delete(`/products/${id}`);
-    showNotification('success', 'Đã Xóa Sản Phẩm', 'Sản phẩm đã được xóa khỏi hệ thống.');
-    await fetchProducts();
-    emit('product-updated');
-  } catch (err) {
-    showNotification('error', 'Không Thể Xóa', 'Có lỗi xảy ra khi xóa sản phẩm!');
-  }
+  showConfirm(
+    'Xác Nhận Xóa Sản Phẩm',
+    'Bạn có chắc chắn muốn xóa sản phẩm thép này khỏi hệ thống? Thao tác này không thể hoàn tác.',
+    async () => {
+      try {
+        await api.delete(`/products/${id}`);
+        showNotification('success', 'Đã Xóa Sản Phẩm', 'Sản phẩm thép đã được xóa khỏi hệ thống thành công.');
+        await fetchProducts();
+        emit('product-updated');
+      } catch (err) {
+        showNotification('error', 'Không Thể Xóa', 'Có lỗi xảy ra khi xóa sản phẩm!');
+      }
+    },
+    { confirmText: 'Xác Nhận Xóa', cancelText: 'Hủy Bỏ', type: 'error' }
+  );
 };
 
 // ─────────────────────────────────────────────────

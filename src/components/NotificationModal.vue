@@ -1,23 +1,17 @@
 <script setup lang="ts">
 import { X, CheckCircle2, AlertTriangle, AlertCircle, Info } from 'lucide-vue-next';
-
-export interface NotificationState {
-  isOpen: boolean;
-  type: 'success' | 'error' | 'warning' | 'info';
-  title: string;
-  message: string;
-}
+import type { NotificationState } from '../composables/useNotification';
 
 const props = defineProps<{
   notification: NotificationState;
 }>();
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'confirm']);
 
 const ICON_MAP = {
   success: { icon: CheckCircle2, bg: 'bg-emerald-100', text: 'text-emerald-600', border: 'border-emerald-200', btn: 'bg-emerald-600 hover:bg-emerald-700 text-white' },
   error:   { icon: AlertCircle,  bg: 'bg-rose-100',    text: 'text-rose-600',    border: 'border-rose-200',    btn: 'bg-rose-600 hover:bg-rose-700 text-white' },
-  warning: { icon: AlertTriangle,bg: 'bg-amber-100',   text: 'text-amber-600',   border: 'border-amber-200',   btn: 'bg-amber-600 hover:bg-amber-700 text-white' },
+  warning: { icon: AlertTriangle,bg: 'bg-amber-100',   text: 'text-amber-600',   border: 'border-amber-200',   btn: 'bg-rose-600 hover:bg-rose-700 text-white' },
   info:    { icon: Info,         bg: 'bg-blue-100',    text: 'text-blue-600',    border: 'border-blue-200',    btn: 'bg-blue-600 hover:bg-blue-700 text-white' }
 };
 </script>
@@ -59,14 +53,34 @@ const ICON_MAP = {
             {{ notification.message }}
           </p>
 
-          <!-- Action Button -->
-          <button 
-            @click="emit('close')" 
-            class="w-full py-3 px-6 font-extrabold rounded-2xl shadow-lg transition duration-200 text-sm tracking-wide"
-            :class="ICON_MAP[notification.type].btn"
-          >
-            Đã Hiểu
-          </button>
+          <!-- Action Buttons -->
+          <template v-if="notification.mode === 'confirm'">
+            <div class="flex items-center gap-3">
+              <button 
+                @click="emit('close')" 
+                class="flex-1 py-3 px-4 font-bold rounded-2xl border border-slate-200 text-slate-700 hover:bg-slate-100 transition text-sm"
+              >
+                {{ notification.cancelText || 'Hủy Bỏ' }}
+              </button>
+              <button 
+                @click="emit('confirm')" 
+                class="flex-1 py-3 px-4 font-extrabold rounded-2xl shadow-lg transition text-sm tracking-wide"
+                :class="ICON_MAP[notification.type].btn"
+              >
+                {{ notification.confirmText || 'Xác Nhận' }}
+              </button>
+            </div>
+          </template>
+
+          <template v-else>
+            <button 
+              @click="emit('close')" 
+              class="w-full py-3 px-6 font-extrabold rounded-2xl shadow-lg transition duration-200 text-sm tracking-wide"
+              :class="ICON_MAP[notification.type].btn"
+            >
+              Đã Hiểu
+            </button>
+          </template>
         </div>
       </div>
     </Transition>

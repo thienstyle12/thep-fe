@@ -12,7 +12,7 @@ import NotificationModal from './components/NotificationModal.vue';
 import { useNotification } from './composables/useNotification';
 import { useCartStore } from './stores/cart';
 
-const { notification, closeNotification } = useNotification();
+const { notification, closeNotification, handleConfirm } = useNotification();
 import type { Product } from './types';
 import { Search, Phone, ShieldCheck, Truck, Factory, MapPin, Award, CheckCircle2, MessageCircle, Eye } from 'lucide-vue-next';
 
@@ -387,7 +387,7 @@ onMounted(() => {
     <!-- Floating Speed Dial Contact -->
     <FloatingContact @open-tracking="isTrackingOpen = true" @open-cart="isCartOpen = true" />
 
-    <!-- Center Popup Notification Modal -->
-    <NotificationModal :notification="notification" @close="closeNotification" />
+    <!-- Center Popup Notification / Confirm Modal -->
+    <NotificationModal :notification="notification" @close="closeNotification" @confirm="handleConfirm" />
   </div>
 </template>
