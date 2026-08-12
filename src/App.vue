@@ -285,61 +285,61 @@ onMounted(() => {
     <!-- Market News & Advice -->
     <MarketNews />
 
-    <!-- Company About & Contact Info -->
-    <section id="about" class="bg-teal-950 text-white py-16 px-6 border-t border-teal-900">
+    <!-- Company About & Contact Info (Sleek Black Footer) -->
+    <section id="about" class="bg-black text-white py-16 px-6 border-t border-slate-800 relative z-10">
       <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <!-- Col 1 -->
         <div>
           <div class="flex items-center space-x-3 mb-4">
-            <div class="w-10 h-10 bg-teal-900 border-2 border-red-600 text-white font-black text-xl rounded-xl flex items-center justify-center">
+            <div class="w-10 h-10 bg-slate-900 border-2 border-red-600 text-white font-black text-xl rounded-xl flex items-center justify-center shadow-lg">
               VT
             </div>
-            <h4 class="text-xl font-black">THÉP VIỆT TÍN</h4>
+            <h4 class="text-xl font-black text-white tracking-tight">THÉP VIỆT TÍN</h4>
           </div>
-          <p class="text-teal-200/70 text-xs leading-relaxed mb-4">
+          <p class="text-slate-400 text-xs leading-relaxed mb-4">
             Công ty Chuyên phân phối Thép Xây Dựng, Dây buộc 1 ly, Thép rút đen, Lưới thép trát tường. Cam kết chất lượng hàng đầu, đầy đủ chứng chỉ CO/CQ.
           </p>
         </div>
 
         <!-- Col 2 -->
         <div>
-          <h5 class="font-extrabold text-sm uppercase text-yellow-400 mb-4 tracking-wider">Danh Mục Sản Phẩm</h5>
-          <ul class="space-y-2 text-xs font-semibold text-teal-200/80">
-            <li><a href="#products" class="hover:text-yellow-400 transition">Thép Cây VIS CB300V / CB400V</a></li>
-            <li><a href="#products" class="hover:text-yellow-400 transition">Dây Buộc 1 Ly (Thép Ủ Mềm)</a></li>
-            <li><a href="#products" class="hover:text-yellow-400 transition">Thép Rút Đen D1 - D10</a></li>
-            <li><a href="#products" class="hover:text-yellow-400 transition">Lưới Trát Tường Chống Nứt</a></li>
-            <li><a href="#products" class="hover:text-yellow-400 transition">Thép Hộp Mạ Kẽm & Xà Gồ</a></li>
+          <h5 class="font-extrabold text-sm uppercase text-red-500 mb-4 tracking-wider">Danh Mục Sản Phẩm</h5>
+          <ul class="space-y-2.5 text-xs font-semibold text-slate-300">
+            <li><a href="#products" class="hover:text-yellow-400 transition flex items-center gap-1.5"><span class="text-red-500">➔</span> Thép Cây VIS CB300V / CB400V</a></li>
+            <li><a href="#products" class="hover:text-yellow-400 transition flex items-center gap-1.5"><span class="text-red-500">➔</span> Dây Buộc 1 Ly (Thép Ủ Mềm)</a></li>
+            <li><a href="#products" class="hover:text-yellow-400 transition flex items-center gap-1.5"><span class="text-red-500">➔</span> Thép Rút Đen D1 - D10</a></li>
+            <li><a href="#products" class="hover:text-yellow-400 transition flex items-center gap-1.5"><span class="text-red-500">➔</span> Lưới Trát Tường Chống Nứt</a></li>
+            <li><a href="#products" class="hover:text-yellow-400 transition flex items-center gap-1.5"><span class="text-red-500">➔</span> Thép Hộp Mạ Kẽm & Xà Gồ</a></li>
           </ul>
         </div>
 
         <!-- Col 3 -->
         <div id="contact">
-          <h5 class="font-extrabold text-sm uppercase text-yellow-400 mb-4 tracking-wider">Hệ Thống Kho Hàng</h5>
-          <ul class="space-y-2.5 text-xs text-teal-200/80">
-            <li class="flex items-start gap-2">
+          <h5 class="font-extrabold text-sm uppercase text-red-500 mb-4 tracking-wider">Hệ Thống Kho Hàng</h5>
+          <ul class="space-y-3 text-xs text-slate-300">
+            <li class="flex items-start gap-2.5">
               <MapPin class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
-              <span><strong>Kho Miền Nam:</strong> Quốc Lộ 1A, Bình Tân, TP. Hồ Chí Minh</span>
+              <span><strong class="text-white">Kho Miền Nam:</strong> Quốc Lộ 1A, Bình Tân, TP. Hồ Chí Minh</span>
             </li>
-            <li class="flex items-start gap-2">
+            <li class="flex items-start gap-2.5">
               <MapPin class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
-              <span><strong>Kho Miền Bắc:</strong> Cụm CN Yên Mỹ, Hưng Yên</span>
+              <span><strong class="text-white">Kho Miền Bắc:</strong> Cụm CN Yên Mỹ, Hưng Yên</span>
             </li>
           </ul>
         </div>
 
         <!-- Col 4 -->
         <div>
-          <h5 class="font-extrabold text-sm uppercase text-yellow-400 mb-4 tracking-wider">Hotline Báo Giá 24/7</h5>
-          <a href="tel:0932283783" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-black px-4 py-3 rounded-xl text-sm mb-3 transition shadow-lg">
+          <h5 class="font-extrabold text-sm uppercase text-red-500 mb-4 tracking-wider">Hotline Báo Giá 24/7</h5>
+          <a href="tel:0932283783" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-black px-5 py-3.5 rounded-xl text-sm mb-3 transition shadow-xl shadow-red-600/20 hover:scale-105">
             <Phone class="w-4 h-4" /> 093 228 37 83
           </a>
-          <p class="text-teal-200/70 text-xs">Liên hệ trực tiếp Zalo / Điện thoại để chốt giá chiết khấu đơn dự án lớn.</p>
+          <p class="text-slate-400 text-xs leading-relaxed">Liên hệ trực tiếp Zalo / Điện thoại để chốt giá chiết khấu đơn dự án lớn.</p>
         </div>
       </div>
 
-      <div class="max-w-7xl mx-auto border-t border-teal-900 mt-12 pt-6 text-center text-xs text-teal-300/60">
-        © 2026 THÉP VIỆT TÍN. Bản quyền thuộc về Thép Việt Tín - Chất Lượng Tạo Niềm Tin.
+      <div class="max-w-7xl mx-auto border-t border-slate-900 mt-12 pt-6 text-center text-xs text-slate-500 font-mono">
+        © 2026 THÉP VIỆT TÍN. Bản quyền thuộc về Thép Việt Tín — Chất Lượng Tạo Niềm Tin.
       </div>
     </section>
 
