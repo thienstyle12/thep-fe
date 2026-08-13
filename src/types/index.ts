@@ -6,9 +6,9 @@ export interface Product {
     specifications: string;
     unit: string;
     pricePerUnit: number;
-    stockQuantity: number;
+    stockQuantity?: number;
     description: string;
-    badge: string;
+    badge?: string;
     imageUrl: string;
 }
 

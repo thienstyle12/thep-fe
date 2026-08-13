@@ -4,6 +4,9 @@ import type { Product, CartItem } from '../types';
 
 export const useCartStore = defineStore('cart', () => {
     const items = ref<CartItem[]>([]);
+    const lastAddedProduct = ref<Product | null>(null);
+    const showToast = ref(false);
+    let toastTimer: any = null;
 
     const totalItemsCount = computed(() => {
         return items.value.reduce((sum, item) => sum + item.quantity, 0);
@@ -20,6 +23,13 @@ export const useCartStore = defineStore('cart', () => {
         } else {
             items.value.push({ product, quantity });
         }
+
+        lastAddedProduct.value = product;
+        showToast.value = true;
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+            showToast.value = false;
+        }, 3000);
     }
 
     function removeFromCart(productId: number) {
@@ -30,5 +40,14 @@ export const useCartStore = defineStore('cart', () => {
         items.value = [];
     }
 
-    return { items, totalItemsCount, totalPrice, addToCart, removeFromCart, clearCart };
+    return { 
+      items, 
+      totalItemsCount, 
+      totalPrice, 
+      lastAddedProduct, 
+      showToast, 
+      addToCart, 
+      removeFromCart, 
+      clearCart 
+    };
 });

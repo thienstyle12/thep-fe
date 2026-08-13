@@ -7,7 +7,7 @@ const { showNotification, showConfirm } = useNotification();
 import {
   X, Plus, Edit3, Trash2, Package, ShoppingBag,
   Search, RefreshCw, CheckCircle2, ChevronDown,
-  ImageIcon, Save, AlertCircle, Info
+  Save, AlertCircle, Info, Truck, Clock, Phone, MapPin
 } from 'lucide-vue-next';
 
 const props = defineProps<{ isOpen: boolean }>();
@@ -15,9 +15,6 @@ const emit = defineEmits(['close', 'product-updated']);
 
 const activeTab = ref<'products' | 'orders'>('products');
 
-// ─────────────────────────────────────────────────
-//  TYPES
-// ─────────────────────────────────────────────────
 interface Category { id: number; name: string; code: string; }
 
 interface ProductItem {
@@ -55,9 +52,6 @@ interface Order {
   items: OrderItem[];
 }
 
-// ─────────────────────────────────────────────────
-//  PRODUCTS STATE
-// ─────────────────────────────────────────────────
 const products = ref<ProductItem[]>([]);
 const categories = ref<Category[]>([]);
 const isLoadingProducts = ref(false);
@@ -101,9 +95,6 @@ const fetchCategories = async () => {
   }
 };
 
-// ─────────────────────────────────────────────────
-//  PRODUCT FORM
-// ─────────────────────────────────────────────────
 const EMPTY_FORM = (): ProductItem => ({
   name: '',
   sku: '',
@@ -199,7 +190,7 @@ const deleteProduct = (id?: number) => {
   if (!id) return;
   showConfirm(
     'Xác Nhận Xóa Sản Phẩm',
-    'Bạn có chắc chắn muốn xóa sản phẩm thép này khỏi hệ thống? Thao tác này không thể hoàn tác.',
+    'Bạn có chắc chắn muốn xóa sản phẩm thép này khỏi hệ thống?',
     async () => {
       try {
         await api.delete(`/products/${id}`);
@@ -214,9 +205,6 @@ const deleteProduct = (id?: number) => {
   );
 };
 
-// ─────────────────────────────────────────────────
-//  ORDERS STATE
-// ─────────────────────────────────────────────────
 const orders = ref<Order[]>([]);
 const isLoadingOrders = ref(false);
 const filterStatus = ref('ALL');
@@ -257,26 +245,19 @@ const updateOrderStatus = async (orderId: number, status: string) => {
 };
 
 const STATUS_MAP: Record<string, { text: string; cls: string }> = {
-  CHO_XU_LY:  { text: '⏳ Chờ Xử Lý',    cls: 'bg-amber-100 text-amber-800 border-amber-300' },
-  DANG_GIAO:  { text: '🚛 Đang Giao Xe Cẩu', cls: 'bg-blue-100 text-blue-800 border-blue-300' },
-  HOAN_THANH: { text: '✅ Hoàn Thành',    cls: 'bg-emerald-100 text-emerald-800 border-emerald-300' },
-  HUY:        { text: '🚫 Đã Hủy',        cls: 'bg-rose-100 text-rose-800 border-rose-300' },
+  CHO_XU_LY:  { text: 'Chờ Xử Lý', cls: 'bg-amber-100 text-amber-800 border-amber-200' },
+  DANG_GIAO:  { text: 'Đang Giao Xe Cẩu', cls: 'bg-blue-100 text-blue-800 border-blue-200' },
+  HOAN_THANH: { text: 'Hoàn Thành', cls: 'bg-emerald-100 text-emerald-800 border-emerald-200' },
+  HUY:        { text: 'Đã Hủy', cls: 'bg-slate-100 text-slate-800 border-slate-200' },
 };
 
-// ─────────────────────────────────────────────────
-//  HELPERS
-// ─────────────────────────────────────────────────
 const formatVND = (v: number) => {
   if (!v || v === 0) return 'Liên hệ';
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(v);
 };
 
-const formatDate = (s: string) =>
-  s ? new Date(s).toLocaleString('vi-VN') : '';
+const formatDate = (s: string) => s ? new Date(s).toLocaleString('vi-VN') : '';
 
-// ─────────────────────────────────────────────────
-//  INIT ON OPEN
-// ─────────────────────────────────────────────────
 watch(() => props.isOpen, async (val) => {
   if (val) {
     await Promise.all([fetchProducts(), fetchOrders(), fetchCategories()]);
@@ -285,185 +266,130 @@ watch(() => props.isOpen, async (val) => {
 </script>
 
 <template>
-  <!-- ── BACKDROP ─────────────────────────────── -->
   <Transition name="fade">
-    <div v-if="isOpen" class="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4">
-      <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" @click="emit('close')" />
+    <div v-if="isOpen" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
+      <div class="absolute inset-0 bg-slate-900/70 backdrop-blur-xs" @click="emit('close')" />
 
-      <!-- ── MAIN PANEL ─────────────────────── -->
-      <div class="relative z-10 flex flex-col w-full max-w-7xl h-[95vh] bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
+      <div class="relative z-10 flex flex-col w-full max-w-7xl h-[92vh] bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
 
         <!-- HEADER -->
-        <div class="flex items-center justify-between gap-4 px-6 py-4 bg-slate-950 text-white border-b border-slate-800 flex-shrink-0">
-          <div class="flex items-center gap-4">
-            <!-- Logo -->
-            <div class="w-10 h-10 rounded-xl bg-red-600 font-black text-xl flex items-center justify-center flex-shrink-0 shadow-lg">VT</div>
+        <div class="flex items-center justify-between gap-4 px-6 py-3.5 bg-slate-900 text-white border-b border-slate-800 flex-shrink-0">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-[#004d40] text-amber-400 font-extrabold text-sm border border-teal-400/30 flex items-center justify-center flex-shrink-0 shadow-md">VT</div>
             <div>
-              <span class="text-[10px] font-extrabold text-red-500 uppercase tracking-widest block">Thép Việt Tín</span>
-              <h2 class="text-lg font-black leading-none">BẢNG ĐIỀU KHIỂN QUẢN TRỊ</h2>
+              <h2 class="text-base font-bold leading-none">BẢNG ĐIỀU KHIỂN QUẢN TRỊ</h2>
+              <span class="text-[11px] text-slate-400 font-medium">Quản lý sản phẩm & đơn báo giá</span>
             </div>
           </div>
 
           <!-- Tabs -->
-          <div class="flex p-1.5 bg-slate-900 rounded-2xl border border-slate-800 gap-1 overflow-x-auto">
+          <div class="flex p-1 bg-slate-800 rounded-xl border border-slate-700/80 gap-1 shadow-inner">
             <button
               @click="activeTab = 'products'"
-              :class="['flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-extrabold transition whitespace-nowrap',
-                activeTab === 'products' ? 'bg-red-600 text-white shadow-md' : 'text-slate-400 hover:text-white']">
-              <Package class="w-4 h-4" />
-              Quản Lý Sản Phẩm
-              <span class="ml-1 bg-white/20 px-1.5 py-0.5 rounded-full text-[10px]">{{ products.length }}</span>
+              :class="['flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 active:scale-95 cursor-pointer',
+                activeTab === 'products' ? 'bg-[#004d40] text-white shadow-md shadow-[#004d40]/40 scale-[1.02]' : 'text-slate-400 hover:text-white hover:bg-slate-700/60']">
+              <Package class="w-3.5 h-3.5" />
+              Sản Phẩm Thép ({{ products.length }})
             </button>
             <button
               @click="activeTab = 'orders'"
-              :class="['flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-extrabold transition whitespace-nowrap',
-                activeTab === 'orders' ? 'bg-red-600 text-white shadow-md' : 'text-slate-400 hover:text-white']">
-              <ShoppingBag class="w-4 h-4" />
+              :class="['flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 active:scale-95 cursor-pointer',
+                activeTab === 'orders' ? 'bg-[#004d40] text-white shadow-md shadow-[#004d40]/40 scale-[1.02]' : 'text-slate-400 hover:text-white hover:bg-slate-700/60']">
+              <ShoppingBag class="w-3.5 h-3.5" />
               Đơn Báo Giá
-              <span v-if="orderCounts.pending > 0" class="ml-1 bg-amber-400 text-slate-900 px-1.5 py-0.5 rounded-full text-[10px] font-black animate-pulse">
+              <span v-if="orderCounts.pending > 0" class="ml-1 bg-amber-400 text-slate-950 px-1.5 py-0.2 rounded-full text-[10px] font-bold animate-pulse">
                 {{ orderCounts.pending }} mới
               </span>
             </button>
           </div>
 
-          <button @click="emit('close')" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition flex-shrink-0">
+          <button @click="emit('close')" class="p-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer">
             <X class="w-5 h-5" />
           </button>
         </div>
 
-        <!-- ══════════════════════════════════════
-             TAB 1: PRODUCTS MANAGEMENT
-        ══════════════════════════════════════════ -->
+        <!-- TAB 1: PRODUCTS MANAGEMENT -->
         <div v-if="activeTab === 'products'" class="flex flex-col flex-grow overflow-hidden">
-
-          <!-- Toolbar -->
-          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-6 py-4 bg-slate-50 border-b border-slate-200 flex-shrink-0">
-            <div class="flex items-center gap-3 w-full sm:w-auto">
-              <!-- Search -->
-              <div class="relative flex-grow sm:w-72">
-                <Search class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-5 py-3 bg-slate-50 border-b border-slate-200 flex-shrink-0">
+            <div class="flex items-center gap-2.5 w-full sm:w-auto">
+              <div class="relative flex-grow sm:w-64">
+                <Search class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
                 <input
                   v-model="productSearch"
                   type="text"
-                  placeholder="Tìm tên, mã SKU, quy cách..."
-                  class="w-full pl-9 pr-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-medium outline-none focus:ring-2 focus:ring-red-500 shadow-sm"
+                  placeholder="Tìm tên, SKU, quy cách..."
+                  class="w-full pl-8 pr-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs font-medium outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 shadow-xs"
                 />
               </div>
 
-              <!-- Category Filter -->
               <select
                 v-model="filterCategoryId"
-                class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold outline-none focus:ring-2 focus:ring-red-500 shadow-sm">
+                class="px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs font-semibold outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 shadow-xs">
                 <option :value="null">Tất cả danh mục</option>
                 <option v-for="c in categories" :key="c.id" :value="c.id">{{ c.name }}</option>
               </select>
 
-              <!-- Refresh -->
-              <button @click="fetchProducts" :disabled="isLoadingProducts" class="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition shadow-sm">
-                <RefreshCw :class="['w-4 h-4', isLoadingProducts && 'animate-spin text-red-500']" />
+              <button @click="fetchProducts" :disabled="isLoadingProducts" class="p-1.5 rounded-lg bg-white border border-slate-300 text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+                <RefreshCw :class="['w-3.5 h-3.5', isLoadingProducts && 'animate-spin text-[#004d40]']" />
               </button>
             </div>
 
-            <!-- Add New -->
             <button
               @click="openCreate"
-              class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-extrabold px-5 py-2.5 rounded-xl text-xs uppercase shadow-lg hover:scale-[1.02] transition duration-200 whitespace-nowrap">
-              <Plus class="w-4 h-4" />
-              Thêm Sản Phẩm Thép Mới
+              class="flex items-center gap-1.5 bg-[#004d40] hover:bg-[#003830] active:scale-95 text-white font-semibold px-4 py-2 rounded-xl text-xs transition shadow-md shadow-[#004d40]/20 whitespace-nowrap cursor-pointer">
+              <Plus class="w-3.5 h-3.5 text-amber-400" />
+              Thêm Thép Mới
             </button>
           </div>
 
           <!-- Products Table -->
           <div class="flex-grow overflow-auto">
-            <div v-if="isLoadingProducts" class="flex items-center justify-center h-full text-slate-400 font-bold">
-              <RefreshCw class="w-6 h-6 mr-2 animate-spin text-red-500" /> Đang tải dữ liệu sản phẩm...
+            <div v-if="isLoadingProducts" class="flex items-center justify-center h-full text-slate-400 text-xs font-semibold">
+              <RefreshCw class="w-5 h-5 mr-2 animate-spin text-[#004d40]" /> Đang tải dữ liệu sản phẩm...
             </div>
 
-            <div v-else-if="filteredProducts.length === 0" class="flex flex-col items-center justify-center h-full text-slate-400 gap-3 py-16">
-              <Package class="w-14 h-14 text-slate-300" />
-              <p class="font-bold text-sm">Không tìm thấy sản phẩm phù hợp.</p>
-              <button @click="productSearch = ''; filterCategoryId = null" class="text-red-500 font-extrabold text-xs underline">Xóa bộ lọc</button>
+            <div v-else-if="filteredProducts.length === 0" class="flex flex-col items-center justify-center h-full text-slate-400 gap-2 py-12 text-xs">
+              <Package class="w-10 h-10 text-slate-300" />
+              <p class="font-semibold">Không tìm thấy sản phẩm phù hợp.</p>
             </div>
 
-            <table v-else class="w-full min-w-[900px] text-left text-xs border-collapse">
+            <table v-else class="w-full min-w-[850px] text-left text-xs border-collapse">
               <thead class="sticky top-0 z-10">
-                <tr class="bg-slate-100 text-slate-600 font-extrabold uppercase text-[10px] tracking-wider border-b border-slate-200">
-                  <th class="px-4 py-3">Sản Phẩm Thép</th>
-                  <th class="px-4 py-3">Quy Cách / Kĩ Thuật</th>
-                  <th class="px-4 py-3">Danh Mục</th>
-                  <th class="px-4 py-3 text-right">Đơn Giá Niêm Yết</th>
-                  <th class="px-4 py-3 text-center">Tồn Kho</th>
-                  <th class="px-4 py-3 text-center">Nhãn</th>
-                  <th class="px-4 py-3 text-center">Thao Tác</th>
+                <tr class="bg-slate-100 text-slate-600 font-semibold text-[11px] uppercase tracking-wide border-b border-slate-200">
+                  <th class="px-4 py-2.5">Sản Phẩm Thép</th>
+                  <th class="px-4 py-2.5">Quy Cách</th>
+                  <th class="px-4 py-2.5">Danh Mục</th>
+                  <th class="px-4 py-2.5 text-right">Đơn Giá</th>
+                  <th class="px-4 py-2.5 text-center">Tồn Kho</th>
+                  <th class="px-4 py-2.5 text-center">Thao Tác</th>
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="p in filteredProducts"
-                  :key="p.id"
-                  class="border-b border-slate-100 hover:bg-red-50/40 transition-colors group">
-
-                  <!-- Product Name + Image -->
-                  <td class="px-4 py-3">
-                    <div class="flex items-center gap-3">
-                      <div class="relative flex-shrink-0">
-                        <img
-                          :src="p.imageUrl || 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=200'"
-                          class="w-14 h-14 object-cover rounded-xl border border-slate-200 shadow-sm"
-                        />
-                      </div>
+                <tr v-for="p in filteredProducts" :key="p.id" class="border-b border-slate-100 hover:bg-teal-50/30 transition">
+                  <td class="px-4 py-2.5">
+                    <div class="flex items-center gap-2.5">
+                      <img :src="p.imageUrl" class="w-10 h-10 object-cover rounded-lg border border-slate-200 flex-shrink-0" />
                       <div>
-                        <h5 class="font-extrabold text-slate-900 text-sm mb-0.5 leading-tight group-hover:text-red-600 transition">{{ p.name }}</h5>
-                        <span class="font-mono text-[10px] text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">SKU: {{ p.sku || '—' }}</span>
+                        <h5 class="font-bold text-slate-900 text-xs leading-snug">{{ p.name }}</h5>
+                        <span class="font-mono text-[10px] text-slate-400">SKU: {{ p.sku || '—' }}</span>
                       </div>
                     </div>
                   </td>
-
-                  <!-- Specs -->
-                  <td class="px-4 py-3 max-w-[160px]">
-                    <p class="text-slate-600 font-semibold text-xs leading-relaxed line-clamp-2">{{ p.specifications || '—' }}</p>
+                  <td class="px-4 py-2.5 text-slate-600 font-medium">{{ p.specifications }}</td>
+                  <td class="px-4 py-2.5">
+                    <span class="bg-teal-50 text-[#004d40] border border-teal-200/60 px-2 py-0.5 rounded text-[11px] font-semibold">{{ p.category }}</span>
                   </td>
-
-                  <!-- Category -->
-                  <td class="px-4 py-3">
-                    <span class="bg-blue-50 text-blue-700 border border-blue-200 font-bold px-2 py-0.5 rounded-lg whitespace-nowrap">
-                      {{ p.category || '—' }}
-                    </span>
+                  <td class="px-4 py-2.5 text-right font-extrabold text-[#004d40]">
+                    {{ formatVND(p.pricePerUnit) }} / {{ p.unit }}
                   </td>
-
-                  <!-- Price -->
-                  <td class="px-4 py-3 text-right">
-                    <span class="font-black text-red-600 text-sm">{{ formatVND(p.pricePerUnit) }}</span>
-                    <span class="text-slate-400 font-medium"> / {{ p.unit }}</span>
-                  </td>
-
-                  <!-- Stock -->
-                  <td class="px-4 py-3 text-center">
-                    <span :class="['font-extrabold text-sm', p.stockQuantity > 100 ? 'text-emerald-600' : p.stockQuantity > 0 ? 'text-amber-600' : 'text-rose-600']">
-                      {{ p.stockQuantity }}
-                    </span>
-                    <span class="text-slate-400 font-medium text-[10px] block">{{ p.unit }}</span>
-                  </td>
-
-                  <!-- Badge -->
-                  <td class="px-4 py-3 text-center">
-                    <span class="bg-slate-900 text-white font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider whitespace-nowrap">
-                      {{ p.badge || 'Sẵn Kho' }}
-                    </span>
-                  </td>
-
-                  <!-- Actions -->
-                  <td class="px-4 py-3 text-center">
-                    <div class="flex items-center justify-center gap-1.5">
-                      <button
-                        @click="openEdit(p)"
-                        class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-900 hover:text-white text-slate-700 font-extrabold transition text-[10px] uppercase">
-                        <Edit3 class="w-3.5 h-3.5" /> Sửa
+                  <td class="px-4 py-2.5 text-center font-semibold text-slate-700">{{ p.stockQuantity }} {{ p.unit }}</td>
+                  <td class="px-4 py-2.5 text-center">
+                    <div class="flex items-center justify-center gap-1">
+                      <button @click="openEdit(p)" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition cursor-pointer" title="Chỉnh sửa">
+                        <Edit3 class="w-3.5 h-3.5" />
                       </button>
-                      <button
-                        @click="deleteProduct(p.id)"
-                        class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-600 font-extrabold transition text-[10px] uppercase">
-                        <Trash2 class="w-3.5 h-3.5" /> Xóa
+                      <button @click="deleteProduct(p.id)" class="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-600 transition cursor-pointer" title="Xóa">
+                        <Trash2 class="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </td>
@@ -471,350 +397,155 @@ watch(() => props.isOpen, async (val) => {
               </tbody>
             </table>
           </div>
-
-          <!-- Footer count -->
-          <div class="px-6 py-3 bg-slate-50 border-t text-xs font-bold text-slate-500 flex-shrink-0">
-            Hiển thị {{ filteredProducts.length }} / {{ products.length }} sản phẩm
-          </div>
         </div>
 
-        <!-- ══════════════════════════════════════
-             TAB 2: ORDERS
-        ══════════════════════════════════════════ -->
+        <!-- TAB 2: ORDERS -->
         <div v-else class="flex flex-col flex-grow overflow-hidden">
-
-          <!-- Status Tabs -->
-          <div class="flex items-center gap-2 px-6 py-3 bg-slate-50 border-b overflow-x-auto flex-shrink-0 text-xs font-extrabold">
-            <button @click="filterStatus = 'ALL'" :class="['px-4 py-2 rounded-xl transition whitespace-nowrap', filterStatus === 'ALL' ? 'bg-slate-900 text-white' : 'bg-white border text-slate-600 hover:bg-slate-100']">
+          <div class="flex items-center gap-2 px-5 py-2.5 bg-slate-50 border-b overflow-x-auto text-xs font-semibold flex-shrink-0">
+            <button @click="filterStatus = 'ALL'" :class="['px-3 py-1.5 rounded-lg transition cursor-pointer', filterStatus === 'ALL' ? 'bg-slate-900 text-white' : 'bg-white border border-slate-200 text-slate-700']">
               Tất Cả ({{ orderCounts.all }})
             </button>
-            <button @click="filterStatus = 'CHO_XU_LY'" :class="['px-4 py-2 rounded-xl transition whitespace-nowrap', filterStatus === 'CHO_XU_LY' ? 'bg-amber-600 text-white' : 'bg-white border text-slate-600 hover:bg-slate-100']">
-              ⏳ Chờ Xử Lý ({{ orderCounts.pending }})
+            <button @click="filterStatus = 'CHO_XU_LY'" :class="['px-3 py-1.5 rounded-lg transition cursor-pointer', filterStatus === 'CHO_XU_LY' ? 'bg-amber-500 text-white shadow-xs' : 'bg-white border border-slate-200 text-slate-700']">
+              Chờ Xử Lý ({{ orderCounts.pending }})
             </button>
-            <button @click="filterStatus = 'DANG_GIAO'" :class="['px-4 py-2 rounded-xl transition whitespace-nowrap', filterStatus === 'DANG_GIAO' ? 'bg-blue-600 text-white' : 'bg-white border text-slate-600 hover:bg-slate-100']">
-              🚛 Đang Giao ({{ orderCounts.shipping }})
+            <button @click="filterStatus = 'DANG_GIAO'" :class="['px-3 py-1.5 rounded-lg transition cursor-pointer', filterStatus === 'DANG_GIAO' ? 'bg-[#004d40] text-white shadow-xs' : 'bg-white border border-slate-200 text-slate-700']">
+              Đang Giao Xe Cẩu ({{ orderCounts.shipping }})
             </button>
-            <button @click="filterStatus = 'HOAN_THANH'" :class="['px-4 py-2 rounded-xl transition whitespace-nowrap', filterStatus === 'HOAN_THANH' ? 'bg-emerald-600 text-white' : 'bg-white border text-slate-600 hover:bg-slate-100']">
-              ✅ Hoàn Thành ({{ orderCounts.done }})
-            </button>
-            <button @click="filterStatus = 'HUY'" :class="['px-4 py-2 rounded-xl transition whitespace-nowrap', filterStatus === 'HUY' ? 'bg-rose-600 text-white' : 'bg-white border text-slate-600 hover:bg-slate-100']">
-              🚫 Đã Hủy ({{ orderCounts.cancelled }})
-            </button>
-            <button @click="fetchOrders" :disabled="isLoadingOrders" class="ml-auto p-2 rounded-xl bg-white border text-slate-600 hover:bg-slate-100 transition">
-              <RefreshCw :class="['w-4 h-4', isLoadingOrders && 'animate-spin text-red-500']" />
+            <button @click="filterStatus = 'HOAN_THANH'" :class="['px-3 py-1.5 rounded-lg transition cursor-pointer', filterStatus === 'HOAN_THANH' ? 'bg-emerald-600 text-white shadow-xs' : 'bg-white border border-slate-200 text-slate-700']">
+              Hoàn Thành ({{ orderCounts.done }})
             </button>
           </div>
 
-          <!-- Orders List -->
-          <div class="flex-grow overflow-y-auto p-6 space-y-4">
-            <div v-if="isLoadingOrders" class="text-center py-16 text-slate-400 font-bold flex items-center justify-center gap-2">
-              <RefreshCw class="w-5 h-5 animate-spin text-red-500" /> Đang tải danh sách đơn hàng...
-            </div>
-            <div v-else-if="filteredOrders.length === 0" class="text-center py-16 text-slate-400">
-              <ShoppingBag class="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <p class="font-bold">Không có đơn hàng nào trong trạng thái này.</p>
+          <div class="flex-grow overflow-auto p-5 space-y-4">
+            <div v-if="filteredOrders.length === 0" class="text-center py-12 text-slate-400 text-xs font-semibold">
+              Không có đơn hàng nào trong danh mục này.
             </div>
 
-            <div v-for="order in filteredOrders" :key="order.id" class="bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden">
-              <!-- Order Head -->
-              <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 p-4 bg-slate-50 border-b border-slate-100">
-                <div class="flex items-center gap-3 flex-wrap">
-                  <span class="font-mono font-black text-red-600 bg-red-50 border border-red-200 px-3 py-1 rounded-xl text-sm">{{ order.orderCode }}</span>
-                  <span :class="['text-[11px] font-extrabold px-3 py-1 rounded-full border', STATUS_MAP[order.status]?.cls || 'bg-gray-100 text-gray-700 border-gray-300']">
-                    {{ STATUS_MAP[order.status]?.text || order.status }}
-                  </span>
-                  <span class="text-slate-400 text-xs">{{ formatDate(order.createdAt) }}</span>
+            <div v-else v-for="order in filteredOrders" :key="order.id" class="bg-white rounded-xl border border-slate-200 p-4 text-xs space-y-3 shadow-xs hover:border-teal-200 transition">
+              <div class="flex justify-between items-center border-b border-slate-100 pb-2.5">
+                <div>
+                  <span class="font-bold text-slate-900 text-sm font-mono">#{{ order.orderCode }}</span>
+                  <span class="text-slate-400 text-[11px] ml-2">({{ formatDate(order.createdAt) }})</span>
                 </div>
-
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold text-slate-500">Cập nhật:</span>
-                  <select
+                  <select 
                     :value="order.status"
                     @change="updateOrderStatus(order.id, ($event.target as HTMLSelectElement).value)"
-                    class="text-xs font-bold bg-white border border-slate-300 rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-red-500 shadow-sm">
-                    <option value="CHO_XU_LY">⏳ Chờ xử lý</option>
-                    <option value="DANG_GIAO">🚛 Đang giao hàng</option>
-                    <option value="HOAN_THANH">✅ Hoàn thành</option>
-                    <option value="HUY">🚫 Hủy đơn</option>
+                    class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-semibold outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+                  >
+                    <option value="CHO_XU_LY">Chờ Xử Lý</option>
+                    <option value="DANG_GIAO">Đang Giao Xe Cẩu</option>
+                    <option value="HOAN_THANH">Hoàn Thành</option>
+                    <option value="HUY">Hủy Đơn</option>
                   </select>
                 </div>
               </div>
 
-              <!-- Customer + Address + Total -->
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 px-5 py-4 text-xs border-b border-slate-100">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                 <div>
-                  <span class="text-slate-400 font-extrabold uppercase text-[10px] tracking-wider block mb-1">Khách Hàng</span>
-                  <strong class="text-slate-900 text-sm block">{{ order.customerName }}</strong>
-                  <a :href="'tel:' + order.customerPhone" class="text-red-600 font-bold hover:underline flex items-center gap-1 mt-0.5">
-                    📞 {{ order.customerPhone }}
-                  </a>
+                  <span class="text-slate-400 font-medium">Khách hàng:</span>
+                  <span class="font-semibold text-slate-800 ml-1">{{ order.customerName }}</span> ({{ order.customerPhone }})
                 </div>
                 <div>
-                  <span class="text-slate-400 font-extrabold uppercase text-[10px] tracking-wider block mb-1">Địa Chỉ Nhận Hàng</span>
-                  <p class="text-slate-700 font-semibold leading-relaxed">{{ order.shippingAddress }}</p>
-                </div>
-                <div class="text-right sm:text-left">
-                  <span class="text-slate-400 font-extrabold uppercase text-[10px] tracking-wider block mb-1">Tổng Dự Toán</span>
-                  <span class="text-xl font-black text-red-600 block">{{ formatVND(order.totalAmount) }}</span>
+                  <span class="text-slate-400 font-medium">Địa chỉ:</span>
+                  <span class="font-semibold text-slate-800 ml-1">{{ order.shippingAddress }}</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
 
-              <!-- Items -->
-              <div class="p-4">
-                <table class="w-full text-xs">
-                  <thead>
-                    <tr class="text-slate-400 font-extrabold uppercase text-[10px] border-b border-slate-100">
-                      <th class="pb-2 text-left">Sản phẩm thép</th>
-                      <th class="pb-2 text-center">SL</th>
-                      <th class="pb-2 text-right">Đơn giá</th>
-                      <th class="pb-2 text-right">Thành tiền</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y divide-slate-50">
-                    <tr v-for="(item, i) in order.items" :key="i" class="font-medium text-slate-700">
-                      <td class="py-2">{{ item.productName }}</td>
-                      <td class="py-2 text-center font-black text-slate-900">{{ item.quantity }} {{ item.unit }}</td>
-                      <td class="py-2 text-right text-slate-500">{{ formatVND(item.pricePerUnit) }}</td>
-                      <td class="py-2 text-right font-black text-slate-900">{{ formatVND(item.subtotal) }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+        <!-- CREATE / EDIT PRODUCT SUB-MODAL -->
+        <Transition name="fade">
+          <div v-if="isFormOpen" class="fixed inset-0 z-60 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+            <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-xl overflow-hidden flex flex-col max-h-[90vh]">
+              <div class="flex justify-between items-center px-6 py-4 bg-[#004d40] text-white border-b border-teal-800">
+                <h3 class="font-bold text-sm flex items-center gap-2">
+                  <Package class="w-4 h-4 text-amber-400" />
+                  {{ formMode === 'create' ? 'THÊM MỚI SẢN PHẨM THÉP' : 'CHỈNH SỬA THÔNG TIN SẢN PHẨM' }}
+                </h3>
+                <button @click="closeForm" class="p-1 text-teal-200 hover:text-white transition cursor-pointer">
+                  <X class="w-5 h-5" />
+                </button>
+              </div>
+
+              <div class="p-6 overflow-auto space-y-4 text-xs">
+                <div v-if="formError" class="p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl flex items-center gap-2 font-medium">
+                  <AlertCircle class="w-4 h-4 flex-shrink-0" />
+                  <span>{{ formError }}</span>
+                </div>
+
+                <div v-if="saveSuccess" class="p-3 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl flex items-center gap-2 font-medium">
+                  <CheckCircle2 class="w-4 h-4 flex-shrink-0" />
+                  <span>Lưu thành công sản phẩm thép!</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="sm:col-span-2">
+                    <label class="block font-bold text-slate-700 mb-1">Tên Sản Phẩm Thép <span class="text-red-500">*</span></label>
+                    <input v-model="form.name" type="text" placeholder="Ví dụ: Thép Thanh Vằn D10 VIS CB300V" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 font-medium" />
+                  </div>
+
+                  <div>
+                    <label class="block font-bold text-slate-700 mb-1">Mã SKU</label>
+                    <input v-model="form.sku" type="text" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:border-teal-500 font-mono font-medium" />
+                  </div>
+
+                  <div>
+                    <label class="block font-bold text-slate-700 mb-1">Danh Mục <span class="text-red-500">*</span></label>
+                    <select v-model="form.categoryId" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:border-teal-500 font-medium">
+                      <option v-for="c in categories" :key="c.id" :value="c.id">{{ c.name }}</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="block font-bold text-slate-700 mb-1">Quy Cách / Mác Thép</label>
+                    <input v-model="form.specifications" type="text" placeholder="CB300V / CB400V" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:border-teal-500 font-medium" />
+                  </div>
+
+                  <div>
+                    <label class="block font-bold text-slate-700 mb-1">Đơn Vị Tính <span class="text-red-500">*</span></label>
+                    <select v-model="form.unit" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:border-teal-500 font-medium">
+                      <option value="Kg">Kg</option>
+                      <option value="Tấn">Tấn</option>
+                      <option value="Cây">Cây</option>
+                      <option value="Cuộn">Cuộn</option>
+                      <option value="Cặp">Cặp</option>
+                      <option value="m²">m²</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="block font-bold text-slate-700 mb-1">Đơn Giá (VNĐ / Đơn vị)</label>
+                    <input v-model.number="form.pricePerUnit" type="number" step="100" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:border-teal-500 font-bold text-[#004d40]" />
+                  </div>
+
+                  <div>
+                    <label class="block font-bold text-slate-700 mb-1">Số Lượng Tồn Kho</label>
+                    <input v-model.number="form.stockQuantity" type="number" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:border-teal-500 font-medium" />
+                  </div>
+
+                  <div class="sm:col-span-2">
+                    <label class="block font-bold text-slate-700 mb-1">Link Hình Ảnh URL</label>
+                    <input v-model="form.imageUrl" type="text" placeholder="https://..." class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:border-teal-500 font-mono text-[11px]" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-end gap-3 px-6 py-3.5 bg-slate-50 border-t border-slate-200">
+                <button @click="closeForm" class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold transition cursor-pointer">
+                  Hủy Bỏ
+                </button>
+                <button @click="saveProduct" :disabled="isSaving" class="px-5 py-2 rounded-xl bg-[#004d40] hover:bg-[#003830] text-white font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-md shadow-[#004d40]/20">
+                  <Save class="w-4 h-4 text-amber-400" />
+                  <span>{{ isSaving ? 'Đang Lưu...' : 'Lưu Thay Đổi' }}</span>
+                </button>
               </div>
             </div>
           </div>
-        </div>
-
-      </div><!-- /main panel -->
-    </div><!-- /backdrop -->
-  </Transition>
-
-  <!-- ══════════════════════════════════════════════
-       PRODUCT FORM MODAL (Create / Edit)
-  ══════════════════════════════════════════════════ -->
-  <Transition name="slide-up">
-    <div v-if="isFormOpen" class="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      <div class="absolute inset-0 bg-slate-950/85 backdrop-blur-md" @click="closeForm" />
-
-      <div class="relative z-10 w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200 flex flex-col max-h-[95vh]">
-
-        <!-- Form Header -->
-        <div class="px-6 py-5 bg-slate-950 text-white flex items-center justify-between flex-shrink-0">
-          <div>
-            <span class="text-[10px] font-extrabold text-red-400 uppercase tracking-widest block">
-              {{ formMode === 'create' ? 'Thêm Mới Sản Phẩm' : 'Chỉnh Sửa Sản Phẩm' }}
-            </span>
-            <h3 class="text-xl font-black">
-              {{ formMode === 'create' ? 'NHẬP THÔNG TIN SẢN PHẨM THÉP' : 'CẬP NHẬT SẢN PHẨM THÉP' }}
-            </h3>
-          </div>
-          <button @click="closeForm" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
-            <X class="w-5 h-5" />
-          </button>
-        </div>
-
-        <!-- Success Overlay -->
-        <div v-if="saveSuccess" class="absolute inset-0 z-20 bg-white/95 flex flex-col items-center justify-center gap-3">
-          <CheckCircle2 class="w-16 h-16 text-emerald-500" />
-          <p class="text-xl font-black text-slate-900">{{ formMode === 'create' ? 'Đã thêm sản phẩm thành công!' : 'Đã cập nhật thành công!' }}</p>
-        </div>
-
-        <!-- Form Body (scrollable) -->
-        <div class="overflow-y-auto p-6 space-y-5 text-xs flex-grow">
-
-          <!-- Error Alert -->
-          <div v-if="formError" class="flex items-start gap-2 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold p-3 rounded-xl">
-            <AlertCircle class="w-4 h-4 flex-shrink-0 mt-0.5" />
-            {{ formError }}
-          </div>
-
-          <!-- Preview Image + URL -->
-          <div class="flex gap-4 items-start">
-            <div class="flex-shrink-0">
-              <img
-                :src="form.imageUrl || 'https://placehold.co/100x100?text=No+Image'"
-                @error="($event.target as HTMLImageElement).src = 'https://placehold.co/100x100?text=No+Image'"
-                class="w-24 h-24 object-cover rounded-2xl border-2 border-slate-200 shadow-sm"
-              />
-            </div>
-            <div class="flex-grow">
-              <label class="block font-extrabold text-slate-700 mb-1">🖼️ URL Ảnh Sản Phẩm</label>
-              <input
-                v-model="form.imageUrl"
-                type="text"
-                placeholder="https://images.unsplash.com/..."
-                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl font-mono text-[11px] outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 bg-slate-50"
-              />
-              <p class="text-slate-400 mt-1 font-normal">Nhập link ảnh từ Unsplash, Cloudinary hoặc bất kỳ URL công khai nào.</p>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <!-- Name -->
-            <div class="sm:col-span-2">
-              <label class="block font-extrabold text-slate-700 mb-1">
-                Tên Sản Phẩm Thép <span class="text-red-500">*</span>
-              </label>
-              <input
-                v-model="form.name"
-                type="text"
-                placeholder="VD: Thép Cây VIS D16 CB400V"
-                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl font-semibold text-sm outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
-              />
-            </div>
-
-            <!-- SKU -->
-            <div>
-              <label class="block font-extrabold text-slate-700 mb-1">Mã SKU / Mã Kho</label>
-              <input
-                v-model="form.sku"
-                type="text"
-                placeholder="VIS-D16"
-                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl font-mono text-sm outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
-              />
-            </div>
-
-            <!-- Category -->
-            <div>
-              <label class="block font-extrabold text-slate-700 mb-1">
-                Danh Mục Sản Phẩm <span class="text-red-500">*</span>
-              </label>
-              <select
-                v-model="form.categoryId"
-                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 bg-white">
-                <option :value="undefined" disabled>-- Chọn danh mục --</option>
-                <option v-for="c in categories" :key="c.id" :value="c.id">{{ c.name }}</option>
-              </select>
-            </div>
-
-            <!-- Specifications -->
-            <div class="sm:col-span-2">
-              <label class="block font-extrabold text-slate-700 mb-1">Quy Cách Kĩ Thuật</label>
-              <input
-                v-model="form.specifications"
-                type="text"
-                placeholder="VD: Đường kính 16mm • Dài 11.7m | CB400V"
-                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl font-semibold text-sm outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
-              />
-            </div>
-
-            <!-- Unit -->
-            <div>
-              <label class="block font-extrabold text-slate-700 mb-1">
-                Đơn Vị Tính <span class="text-red-500">*</span>
-              </label>
-              <select
-                v-model="form.unit"
-                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 bg-white">
-                <option value="Cây">Cây</option>
-                <option value="Kg">Kg</option>
-                <option value="Tấn">Tấn</option>
-                <option value="Cuộn">Cuộn</option>
-                <option value="Tấm">Tấm</option>
-                <option value="Mét">Mét</option>
-              </select>
-            </div>
-
-            <!-- Badge -->
-            <div>
-              <label class="block font-extrabold text-slate-700 mb-1">Nhãn Hiển Thị</label>
-              <select
-                v-model="form.badge"
-                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 bg-white">
-                <option value="Bán Chạy">Bán Chạy</option>
-                <option value="Phổ Biến">Phổ Biến</option>
-                <option value="Mới">Mới</option>
-                <option value="Sẵn Kho">Sẵn Kho</option>
-                <option value="Giá Kho">Giá Kho</option>
-                <option value="Dự Án">Dự Án</option>
-                <option value="Hết Hàng">Hết Hàng</option>
-              </select>
-            </div>
-
-            <!-- Price -->
-            <div>
-              <label class="block font-extrabold text-slate-700 mb-1">
-                Đơn Giá Niêm Yết (VNĐ / Đơn vị)
-                <span class="text-slate-400 font-normal">(0 = Liên hệ)</span>
-              </label>
-              <div class="relative">
-                <input
-                  v-model.number="form.pricePerUnit"
-                  type="number"
-                  min="0"
-                  step="1000"
-                  class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl font-mono text-sm text-red-600 font-black outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                />
-              </div>
-              <p class="text-slate-400 mt-1 font-normal">
-                ≈ {{ form.pricePerUnit ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(form.pricePerUnit) : 'Liên hệ báo giá' }}
-              </p>
-            </div>
-
-            <!-- Stock -->
-            <div>
-              <label class="block font-extrabold text-slate-700 mb-1">Tồn Kho Hiện Tại ({{ form.unit }})</label>
-              <input
-                v-model.number="form.stockQuantity"
-                type="number"
-                min="0"
-                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl font-semibold text-sm outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
-              />
-            </div>
-
-            <!-- Description -->
-            <div class="sm:col-span-2">
-              <label class="block font-extrabold text-slate-700 mb-1">Mô Tả Sản Phẩm</label>
-              <textarea
-                v-model="form.description"
-                rows="3"
-                placeholder="Đặc tính vật liệu, ứng dụng trong công trình, lưu ý kĩ thuật..."
-                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl font-medium text-sm outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 resize-none"
-              />
-            </div>
-          </div>
-        </div><!-- /form body -->
-
-        <!-- Form Footer -->
-        <div class="flex items-center justify-between gap-3 px-6 py-4 bg-slate-50 border-t flex-shrink-0">
-          <button @click="closeForm" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-extrabold hover:bg-slate-100 text-xs uppercase transition">
-            Hủy Bỏ
-          </button>
-          <div class="flex items-center gap-3">
-            <div v-if="formMode === 'edit'" class="flex items-center gap-1.5 text-[10px] text-slate-400 font-bold">
-              <Info class="w-3.5 h-3.5" /> Đang chỉnh sửa ID #{{ editingId }}
-            </div>
-            <button
-              @click="saveProduct"
-              :disabled="isSaving"
-              class="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 disabled:bg-slate-300 text-white font-extrabold text-xs uppercase shadow-lg transition">
-              <Save class="w-4 h-4" />
-              <span>{{ isSaving ? 'Đang lưu...' : formMode === 'create' ? 'Tạo Sản Phẩm Mới' : 'Lưu Thay Đổi' }}</span>
-            </button>
-          </div>
-        </div>
+        </Transition>
 
       </div>
     </div>
   </Transition>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.25s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.slide-up-enter-active,
-.slide-up-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-.slide-up-enter-from,
-.slide-up-leave-to {
-  opacity: 0;
-  transform: translateY(16px) scale(0.97);
-}
-</style>
