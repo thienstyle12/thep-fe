@@ -1,60 +1,69 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Phone, MessageCircle, ClipboardList, ChevronUp, X } from 'lucide-vue-next';
+import { Phone, MessageCircle, ClipboardList, X } from 'lucide-vue-next';
 
 defineEmits(['open-tracking', 'open-cart']);
 const isOpen = ref(false);
 </script>
 
 <template>
-  <div class="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
-    <!-- Menu options -->
+  <div class="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2.5">
     <Transition name="bounce">
-      <div v-if="isOpen" class="flex flex-col items-end gap-2.5 mb-1">
-        <!-- Track Order -->
+      <div v-if="isOpen" class="flex flex-col items-end gap-2 mb-1">
         <button
           @click="$emit('open-tracking'); isOpen = false"
-          class="flex items-center gap-2.5 bg-slate-900 hover:bg-black text-white font-extrabold px-4 py-2.5 rounded-2xl shadow-xl border border-slate-700 text-xs transition duration-200 hover:scale-105">
-          <ClipboardList class="w-4 h-4 text-yellow-400" /> Tra Cứu Đơn Hàng
+          class="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3.5 py-2 rounded-xl shadow-md border border-slate-700 text-xs transition">
+          <ClipboardList class="w-3.5 h-3.5 text-amber-400" /> Tra Cứu Đơn Hàng
         </button>
 
-        <!-- Zalo Contact -->
         <a
           href="https://zalo.me/0932283783"
           target="_blank"
-          class="flex items-center gap-2.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold px-4 py-2.5 rounded-2xl shadow-xl text-xs transition duration-200 hover:scale-105">
-          <MessageCircle class="w-4 h-4 text-white" /> Zalo Báo Giá 24/7
+          class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3.5 py-2 rounded-xl shadow-md text-xs transition">
+          <MessageCircle class="w-3.5 h-3.5 text-white" /> Zalo Báo Giá 24/7
         </a>
 
-        <!-- Call Hotline -->
         <a
           href="tel:0932283783"
-          class="flex items-center gap-2.5 bg-[#006a64] hover:bg-[#00544f] text-white font-extrabold px-4 py-2.5 rounded-2xl shadow-xl text-xs transition duration-200 hover:scale-105">
-          <Phone class="w-4 h-4 text-yellow-300 fill-yellow-300 animate-pulse" /> Gọi Hotline 093 228 37 83
+          class="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3.5 py-2 rounded-xl shadow-md text-xs transition">
+          <Phone class="w-3.5 h-3.5 text-slate-950" /> Gọi Hotline 093 228 37 83
         </a>
       </div>
     </Transition>
 
-    <!-- Main Trigger Button -->
-    <button
-      @click="isOpen = !isOpen"
-      class="w-14 h-14 rounded-full bg-[#006a64] hover:bg-[#00544f] text-white flex items-center justify-center shadow-2xl border-2 border-white ring-4 ring-[#006a64]/30 transition duration-300 hover:scale-110 active:scale-95 group">
-      <X v-if="isOpen" class="w-7 h-7" />
-      <Phone v-else class="w-7 h-7 fill-white group-hover:rotate-12 transition duration-300" />
-    </button>
+    <div class="relative group">
+      <!-- Expanding Radar Ripple Pulse Waves -->
+      <span v-if="!isOpen" class="absolute -inset-2 rounded-full bg-teal-400/50 animate-ping pointer-events-none opacity-75"></span>
+      <span v-if="!isOpen" class="absolute -inset-4 rounded-full bg-[#004d40]/30 animate-pulse pointer-events-none"></span>
+
+      <button
+        @click="isOpen = !isOpen"
+        class="relative z-10 w-13 h-13 rounded-full bg-[#004d40] hover:bg-[#003830] text-white flex items-center justify-center shadow-2xl border-2 border-amber-400/90 transition-all duration-300 active:scale-95 cursor-pointer"
+        title="Hotline Tư Vấn 24/7"
+      >
+        <X v-if="isOpen" class="w-6 h-6 text-amber-400 transition-transform duration-300 rotate-90" />
+        <Phone v-else class="w-6 h-6 fill-white text-white animate-phone-wiggle" />
+      </button>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.bounce-enter-active {
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+.bounce-enter-active, .bounce-leave-active {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.bounce-leave-active {
-  transition: all 0.2s ease-in;
-}
-.bounce-enter-from,
-.bounce-leave-to {
+.bounce-enter-from, .bounce-leave-to {
   opacity: 0;
-  transform: translateY(15px) scale(0.9);
+  transform: translateY(12px) scale(0.95);
+}
+
+@keyframes phoneWiggle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  10%, 30%, 50%, 70%, 90% { transform: rotate(-14deg) scale(1.12); }
+  20%, 40%, 60%, 80% { transform: rotate(14deg) scale(1.12); }
+}
+
+.animate-phone-wiggle {
+  animation: phoneWiggle 2.2s ease-in-out infinite;
 }
 </style>
