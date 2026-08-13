@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { Calculator, PlusCircle, Check, Scale, FileText, Layers, Box, Maximize2, Compass } from 'lucide-vue-next';
+import { Calculator, PlusCircle, Check } from 'lucide-vue-next';
 import { useCartStore } from '../stores/cart';
 
 const cartStore = useCartStore();
@@ -38,31 +38,41 @@ const structuralPricePerKg = ref(17500); // VNĐ/kg
 const addedNotice = ref(false);
 
 // Formulas
+// Rebar: W = (d^2 / 162) * length (kg/cây)
 const rebarWeightPerPiece = computed(() => {
   const d = rebarDiameter.value;
   return (d * d / 162) * rebarLength.value;
 });
+
 const totalRebarWeight = computed(() => rebarWeightPerPiece.value * rebarQuantity.value);
 const totalRebarPrice = computed(() => totalRebarWeight.value * rebarPricePerKg.value);
 
+// Tube: W = [2*(a+b)/3.14 - t] * t * 0.02466 * length (kg/cây)
 const tubeWeightPerPiece = computed(() => {
   const a = tubeWidth.value;
   const b = tubeHeight.value;
   const t = tubeThickness.value;
   return (2 * (a + b) / 3.14159 - t) * t * 0.02466 * tubeLength.value;
 });
+
 const totalTubeWeight = computed(() => tubeWeightPerPiece.value * tubeQuantity.value);
 const totalTubePrice = computed(() => totalTubeWeight.value * tubePricePerKg.value);
 
-const plateWeightPerPiece = computed(() => plateThickness.value * plateWidth.value * plateLength.value * 7.85);
+// Plate: W = t(mm) * W(m) * L(m) * 7.85 (kg/tấm)
+const plateWeightPerPiece = computed(() => {
+  return plateThickness.value * plateWidth.value * plateLength.value * 7.85;
+});
+
 const totalPlateWeight = computed(() => plateWeightPerPiece.value * plateQuantity.value);
 const totalPlatePrice = computed(() => totalPlateWeight.value * platePricePerKg.value);
 
+// Structural V: W = (2*a - t) * t * 0.00785 * length (kg/cây)
 const structuralWeightPerPiece = computed(() => {
   const a = vSide.value;
   const t = vThickness.value;
   return (2 * a - t) * t * 0.00785 * structuralLength.value;
 });
+
 const totalStructuralWeight = computed(() => structuralWeightPerPiece.value * structuralQuantity.value);
 const totalStructuralPrice = computed(() => totalStructuralWeight.value * structuralPricePerKg.value);
 
@@ -88,256 +98,257 @@ const currentQuantity = computed(() => {
 });
 
 const formatVND = (val: number) => {
-  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(val);
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Math.round(val));
 };
 
 const handleAddToCart = () => {
-  let name = '';
+  let productName = '';
   let specs = '';
-  let unit = 'cây';
-  let unitPrice = 0;
+  let qty = 1;
+  let unit = 'Kg';
+  let price = 0;
 
   if (activeTab.value === 'rebar') {
-    name = `Thép Thanh Vằn D${rebarDiameter.value}`;
-    specs = `Đường kính ${rebarDiameter.value}mm x Chiều dài ${rebarLength.value}m (~${rebarWeightPerPiece.value.toFixed(2)} kg/cây)`;
-    unitPrice = (totalRebarPrice.value / rebarQuantity.value);
+    productName = `Thép Cây D${rebarDiameter.value} (Tính theo khối lượng)`;
+    specs = `Ø ${rebarDiameter.value}mm • Dài ${rebarLength.value}m • ${rebarQuantity.value} cây (${totalRebarWeight.value.toFixed(1)} kg)`;
+    qty = Math.round(totalRebarWeight.value);
+    price = rebarPricePerKg.value;
   } else if (activeTab.value === 'tube') {
-    name = `Thép Hộp ${tubeWidth.value}x${tubeHeight.value}x${tubeThickness.value}mm`;
-    specs = `Quy cách ${tubeWidth.value}x${tubeHeight.value}mm, Dày ${tubeThickness.value}mm x Dài ${tubeLength.value}m (~${tubeWeightPerPiece.value.toFixed(2)} kg/cây)`;
-    unitPrice = (totalTubePrice.value / tubeQuantity.value);
+    productName = `Thép Hộp ${tubeWidth.value}x${tubeHeight.value}x${tubeThickness.value}mm`;
+    specs = `Quy cách ${tubeWidth.value}x${tubeHeight.value}mm • Dày ${tubeThickness.value}mm • Dài ${tubeLength.value}m • ${tubeQuantity.value} cây`;
+    qty = Math.round(totalTubeWeight.value);
+    price = tubePricePerKg.value;
   } else if (activeTab.value === 'plate') {
-    name = `Thép Tấm Dày ${plateThickness.value}mm`;
-    specs = `Kích thước ${plateWidth.value}m x ${plateLength.value}m (~${plateWeightPerPiece.value.toFixed(2)} kg/tấm)`;
-    unit = 'tấm';
-    unitPrice = (totalPlatePrice.value / plateQuantity.value);
+    productName = `Thép Tấm Dày ${plateThickness.value}mm (${plateWidth.value}x${plateLength.value}m)`;
+    specs = `Dày ${plateThickness.value}mm • Rộng ${plateWidth.value}m • Dài ${plateLength.value}m • ${plateQuantity.value} tấm`;
+    qty = Math.round(totalPlateWeight.value);
+    price = platePricePerKg.value;
   } else {
-    name = `Thép Hình V${vSide.value}x${vThickness.value}mm`;
-    specs = `Cạnh V ${vSide.value}mm, Độ dày ${vThickness.value}mm x Dài ${structuralLength.value}m (~${structuralWeightPerPiece.value.toFixed(2)} kg/cây)`;
-    unitPrice = (totalStructuralPrice.value / structuralQuantity.value);
+    productName = `Thép Góc V${vSide.value}x${vSide.value}x${vThickness.value}mm`;
+    specs = `Cánh ${vSide.value}mm • Dày ${vThickness.value}mm • Dài ${structuralLength.value}m • ${structuralQuantity.value} cây`;
+    qty = Math.round(totalStructuralWeight.value);
+    price = structuralPricePerKg.value;
   }
 
-  const customProduct = {
+  cartStore.addToCart({
     id: Date.now(),
-    name: `${name} (Tính từ công cụ)`,
+    name: productName,
+    category: 'Tính Khối Lượng',
     specifications: specs,
-    pricePerUnit: Math.round(unitPrice),
     unit: unit,
-    category: 'Thép Tính Theo Quy Cách',
-    imageUrl: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=500',
-    description: `Khối lượng dự toán: ${currentWeight.value.toFixed(2)} kg cho ${currentQuantity.value} ${unit}.`,
-    stockQuantity: 9999,
-    badge: 'Dự Toán'
-  };
+    pricePerUnit: price,
+    stockQuantity: 999,
+    description: `Yêu cầu báo giá tính toán tự động: ${specs}`,
+    badge: 'Dự Toán',
+    imageUrl: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600'
+  }, qty);
 
-  cartStore.addToCart(customProduct, currentQuantity.value);
   addedNotice.value = true;
-  setTimeout(() => {
-    addedNotice.value = false;
-  }, 2000);
+  setTimeout(() => addedNotice.value = false, 2500);
 };
 </script>
 
 <template>
-  <div id="calculator" class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 my-10 shadow-sm">
-    <!-- Header -->
-    <div class="flex items-center gap-3 pb-6 border-b border-slate-200 mb-6">
-      <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
-        <Calculator class="w-5 h-5" />
-      </div>
+  <div id="calculator" class="bg-slate-900 text-white rounded-3xl p-6 md:p-10 shadow-2xl border border-slate-800 my-12">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
       <div>
-        <h3 class="text-xl font-bold text-slate-900">Công Cụ Tính Trọng Lượng Thép TCVN</h3>
-        <p class="text-xs text-slate-500 font-medium">Tính toán nhanh số kg, Tấn & quy đổi chi phí ước tính theo TCVN 1651-2</p>
+        <span class="inline-flex items-center gap-2 bg-[#006a64]/20 text-teal-300 border border-[#006a64]/40 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+          <Calculator class="w-4 h-4" /> Tiện ích kĩ sư & công trình
+        </span>
+        <h3 class="text-2xl md:text-3xl font-black text-white">BỘ TÍNH TRỌNG LƯỢNG THÉP</h3>
+        <p class="text-slate-400 text-sm mt-1">Tính khối lượng (Kg/Tấn) và dự toán chi phí chính xác theo mác thép tiêu chuẩn</p>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="flex p-1 bg-slate-800/80 rounded-xl border border-slate-700 w-full md:w-auto overflow-x-auto">
+        <button 
+          @click="activeTab = 'rebar'" 
+          :class="['flex-1 md:flex-none px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap', activeTab === 'rebar' ? 'bg-[#006a64] text-white shadow' : 'text-slate-400 hover:text-white']">
+          Thép Cây / Cuộn
+        </button>
+        <button 
+          @click="activeTab = 'tube'" 
+          :class="['flex-1 md:flex-none px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap', activeTab === 'tube' ? 'bg-[#006a64] text-white shadow' : 'text-slate-400 hover:text-white']">
+          Thép Hộp
+        </button>
+        <button 
+          @click="activeTab = 'plate'" 
+          :class="['flex-1 md:flex-none px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap', activeTab === 'plate' ? 'bg-[#006a64] text-white shadow' : 'text-slate-400 hover:text-white']">
+          Thép Tấm
+        </button>
+        <button 
+          @click="activeTab = 'structural'" 
+          :class="['flex-1 md:flex-none px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap', activeTab === 'structural' ? 'bg-[#006a64] text-white shadow' : 'text-slate-400 hover:text-white']">
+          Thép Góc V / Hình
+        </button>
       </div>
     </div>
 
-    <!-- Category Tabs Filter -->
-    <div class="flex flex-wrap gap-2 mb-6 bg-slate-100/70 p-1.5 rounded-2xl border border-slate-200/80">
-      <button 
-        @click="activeTab = 'rebar'"
-        :class="['flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-95', 
-          activeTab === 'rebar' ? 'bg-slate-900 text-white shadow-sm shadow-slate-900/20 scale-[1.01]' : 'text-slate-600 hover:text-slate-900 hover:bg-white/80']">
-        <Layers class="w-3.5 h-3.5 text-blue-400" v-if="activeTab === 'rebar'" />
-        <Layers class="w-3.5 h-3.5 text-slate-400" v-else />
-        Thép Thanh Vằn (Cây)
-      </button>
+    <!-- Inputs & Results Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      
+      <!-- Inputs Column -->
+      <div class="lg:col-span-7 bg-slate-800/50 p-6 rounded-2xl border border-slate-700/60 space-y-5">
 
-      <button 
-        @click="activeTab = 'tube'"
-        :class="['flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-95', 
-          activeTab === 'tube' ? 'bg-slate-900 text-white shadow-sm shadow-slate-900/20 scale-[1.01]' : 'text-slate-600 hover:text-slate-900 hover:bg-white/80']">
-        <Box class="w-3.5 h-3.5 text-blue-400" v-if="activeTab === 'tube'" />
-        <Box class="w-3.5 h-3.5 text-slate-400" v-else />
-        Thép Hộp Vuông / Chữ Nhật
-      </button>
-
-      <button 
-        @click="activeTab = 'plate'"
-        :class="['flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-95', 
-          activeTab === 'plate' ? 'bg-slate-900 text-white shadow-sm shadow-slate-900/20 scale-[1.01]' : 'text-slate-600 hover:text-slate-900 hover:bg-white/80']">
-        <Maximize2 class="w-3.5 h-3.5 text-blue-400" v-if="activeTab === 'plate'" />
-        <Maximize2 class="w-3.5 h-3.5 text-slate-400" v-else />
-        Thép Tấm
-      </button>
-
-      <button 
-        @click="activeTab = 'structural'"
-        :class="['flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-95', 
-          activeTab === 'structural' ? 'bg-slate-900 text-white shadow-sm shadow-slate-900/20 scale-[1.01]' : 'text-slate-600 hover:text-slate-900 hover:bg-white/80']">
-        <Compass class="w-3.5 h-3.5 text-blue-400" v-if="activeTab === 'structural'" />
-        <Compass class="w-3.5 h-3.5 text-slate-400" v-else />
-        Thép Hình V
-      </button>
-    </div>
-
-    <!-- Main Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-      <!-- Input Controls -->
-      <div class="lg:col-span-7 space-y-4">
-        <!-- Rebar form -->
-        <div v-if="activeTab === 'rebar'" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Đường Kính d (mm)</label>
-            <select v-model="rebarDiameter" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500">
-              <option v-for="d in [6,8,10,12,14,16,18,20,22,25,28,32]" :key="d" :value="d">Phi {{ d }} (d{{ d }}mm)</option>
-            </select>
+        <!-- TAB 1: THÉP CÂY -->
+        <div v-if="activeTab === 'rebar'" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Đường kính (D - mm)</label>
+              <select v-model="rebarDiameter" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none">
+                <option :value="6">D6 (Ø 6mm)</option>
+                <option :value="8">D8 (Ø 8mm)</option>
+                <option :value="10">D10 (Ø 10mm)</option>
+                <option :value="12">D12 (Ø 12mm)</option>
+                <option :value="14">D14 (Ø 14mm)</option>
+                <option :value="16">D16 (Ø 16mm)</option>
+                <option :value="18">D18 (Ø 18mm)</option>
+                <option :value="20">D20 (Ø 20mm)</option>
+                <option :value="22">D22 (Ø 22mm)</option>
+                <option :value="25">D25 (Ø 25mm)</option>
+                <option :value="28">D28 (Ø 28mm)</option>
+                <option :value="32">D32 (Ø 32mm)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Chiều dài cây (L - mét)</label>
+              <input v-model.number="rebarLength" type="number" step="0.1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
           </div>
 
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Chiều Dài Thanh (m)</label>
-            <input v-model.number="rebarLength" type="number" step="0.1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Số Lượng Thanh (Cây)</label>
-            <input v-model.number="rebarQuantity" type="number" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Đơn Giá Tham Khảo (Đồng/kg)</label>
-            <input v-model.number="rebarPricePerKg" type="number" step="100" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Số lượng cây</label>
+              <input v-model.number="rebarQuantity" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Đơn giá tham khảo (VNĐ / Kg)</label>
+              <input v-model.number="rebarPricePerKg" type="number" step="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
           </div>
         </div>
 
-        <!-- Tube form -->
-        <div v-if="activeTab === 'tube'" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Cạnh Rộng a (mm)</label>
-            <input v-model.number="tubeWidth" type="number" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
+        <!-- TAB 2: THÉP HỘP -->
+        <div v-else-if="activeTab === 'tube'" class="space-y-4">
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Cạnh A (mm)</label>
+              <input v-model.number="tubeWidth" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Cạnh B (mm)</label>
+              <input v-model.number="tubeHeight" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Độ dày (t - mm)</label>
+              <input v-model.number="tubeThickness" type="number" step="0.1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
           </div>
 
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Cạnh Cao b (mm)</label>
-            <input v-model.number="tubeHeight" type="number" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Độ Dày t (mm)</label>
-            <input v-model.number="tubeThickness" type="number" step="0.1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Chiều Dài (m)</label>
-            <input v-model.number="tubeLength" type="number" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Số Lượng Cây</label>
-            <input v-model.number="tubeQuantity" type="number" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Đơn Giá Tham Khảo (Đồng/kg)</label>
-            <input v-model.number="tubePricePerKg" type="number" step="100" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Chiều dài (m)</label>
+              <input v-model.number="tubeLength" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Số lượng cây</label>
+              <input v-model.number="tubeQuantity" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Giá (VNĐ / Kg)</label>
+              <input v-model.number="tubePricePerKg" type="number" step="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
           </div>
         </div>
 
-        <!-- Plate form -->
-        <div v-if="activeTab === 'plate'" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Độ Dày t (mm)</label>
-            <input v-model.number="plateThickness" type="number" step="0.5" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
+        <!-- TAB 3: THÉP TẤM -->
+        <div v-else-if="activeTab === 'plate'" class="space-y-4">
+          <div class="grid grid-cols-3 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Độ dày (mm)</label>
+              <input v-model.number="plateThickness" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Chiều rộng (m)</label>
+              <input v-model.number="plateWidth" type="number" step="0.1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Chiều dài (m)</label>
+              <input v-model.number="plateLength" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
           </div>
 
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Chiều Rộng W (m)</label>
-            <input v-model.number="plateWidth" type="number" step="0.1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Chiều Dài L (m)</label>
-            <input v-model.number="plateLength" type="number" step="0.1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Số Lượng Tấm</label>
-            <input v-model.number="plateQuantity" type="number" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Đơn Giá Tham Khảo (Đồng/kg)</label>
-            <input v-model.number="platePricePerKg" type="number" step="100" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Số lượng tấm</label>
+              <input v-model.number="plateQuantity" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Giá (VNĐ / Kg)</label>
+              <input v-model.number="platePricePerKg" type="number" step="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
           </div>
         </div>
 
-        <!-- Structural form -->
-        <div v-if="activeTab === 'structural'" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Cạnh V a (mm)</label>
-            <input v-model.number="vSide" type="number" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
+        <!-- TAB 4: THÉP HÌNH V -->
+        <div v-else class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Cánh V (mm)</label>
+              <input v-model.number="vSide" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Độ dày (t - mm)</label>
+              <input v-model.number="vThickness" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Chiều dài (m)</label>
+              <input v-model.number="structuralLength" type="number" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
           </div>
 
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Độ Dày t (mm)</label>
-            <input v-model.number="vThickness" type="number" step="0.5" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Số lượng cây</label>
+              <input v-model.number="structuralQuantity" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase">Giá (VNĐ / Kg)</label>
+              <input v-model.number="structuralPricePerKg" type="number" step="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-[#006a64] focus:outline-none"/>
+            </div>
           </div>
+        </div>
 
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Chiều Dài Cây (m)</label>
-            <input v-model.number="structuralLength" type="number" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Số Lượng Cây</label>
-            <input v-model.number="structuralQuantity" type="number" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Đơn Giá Tham Khảo (Đồng/kg)</label>
-            <input v-model.number="structuralPricePerKg" type="number" step="100" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500" />
-          </div>
+        <div class="text-xs text-slate-400 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+          💡 Công thức chuẩn: Trọng lượng thép <strong>W = d² / 162 × L</strong> (Thép cây), <strong>W = (2a-t) × t × 0.00785 × L</strong> (Thép V) hoặc <strong>W = T × W × L × 7.85</strong> (Thép tấm).
         </div>
       </div>
 
-      <!-- Output Results Panel -->
-      <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl p-6 flex flex-col justify-between border border-slate-800">
-        <div>
-          <div class="flex items-center gap-2 text-slate-400 text-xs font-semibold mb-4 pb-3 border-b border-slate-800">
-            <Scale class="w-4 h-4 text-amber-400" />
-            <span>KẾT QUẢ TÍNH LÝ THUYẾT TCVN</span>
-          </div>
+      <!-- Results & Action Card -->
+      <div class="lg:col-span-5 bg-gradient-to-br from-[#006a64] to-[#004e4a] p-6 md:p-8 rounded-2xl flex flex-col justify-between shadow-xl relative overflow-hidden">
+        <div class="relative z-10">
+          <span class="text-xs font-bold text-teal-200 uppercase tracking-widest block mb-1">Kết quả tính toán</span>
+          <h4 class="text-xl font-black text-white mb-6">TỔNG KHỐI LƯỢNG & CHI PHÍ</h4>
 
-          <div class="mb-4">
-            <span class="text-xs text-slate-400 font-medium block mb-1">Trọng Lượng 1 Đơn Vị (Cây/Tấm):</span>
-            <div class="text-2xl font-bold text-white font-mono">
-              <template v-if="activeTab === 'rebar'">{{ rebarWeightPerPiece.toFixed(2) }} kg</template>
-              <template v-else-if="activeTab === 'tube'">{{ tubeWeightPerPiece.toFixed(2) }} kg</template>
-              <template v-else-if="activeTab === 'plate'">{{ plateWeightPerPiece.toFixed(2) }} kg</template>
-              <template v-else>{{ structuralWeightPerPiece.toFixed(2) }} kg</template>
+          <div class="space-y-4 mb-6">
+            <div class="bg-black/30 backdrop-blur-md p-4 rounded-xl border border-white/10 flex justify-between items-center">
+              <span class="text-sm font-medium text-slate-200">Trọng lượng 1 đơn vị:</span>
+              <span class="text-lg font-black text-yellow-300">
+                {{ (currentWeight / (currentQuantity || 1)).toFixed(2) }} kg
+              </span>
             </div>
-          </div>
 
-          <div class="mb-4">
-            <span class="text-xs text-slate-400 font-medium block mb-1">Tổng Trọng Lượng Dự Tính:</span>
-            <div class="text-3xl font-bold text-emerald-400 font-mono">
-              {{ currentWeight.toFixed(2) }} <span class="text-sm font-semibold text-slate-300">kg</span> 
-              <span class="text-sm font-medium text-slate-400 ml-2">({{ (currentWeight / 1000).toFixed(3) }} Tấn)</span>
+            <div class="bg-black/30 backdrop-blur-md p-4 rounded-xl border border-white/10 flex justify-between items-center">
+              <span class="text-sm font-medium text-slate-200">TỔNG KHỐI LƯỢNG:</span>
+              <div class="text-right">
+                <span class="text-2xl font-black text-white block">{{ currentWeight.toFixed(1) }} Kg</span>
+                <span class="text-xs text-teal-200 font-mono">~ {{ (currentWeight / 1000).toFixed(3) }} Tấn</span>
+              </div>
             </div>
-          </div>
 
-          <div class="mb-6">
-            <span class="text-xs text-slate-400 font-medium block mb-1">Tổng Chi Phí Ước Tính:</span>
-            <div class="text-2xl font-bold text-amber-400 font-mono">
-              {{ formatVND(currentPrice) }}
+            <div class="bg-black/30 backdrop-blur-md p-4 rounded-xl border border-white/10 flex justify-between items-center">
+              <span class="text-sm font-medium text-slate-200">DỰ TOÁN TIỀN THÉP:</span>
+              <span class="text-2xl font-black text-yellow-300">{{ formatVND(currentPrice) }}</span>
             </div>
           </div>
         </div>
@@ -345,19 +356,18 @@ const handleAddToCart = () => {
         <button 
           @click="handleAddToCart"
           :class="[
-            'w-full font-bold py-3.5 px-4 rounded-xl text-xs uppercase tracking-wide transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-98',
-            addedNotice 
-              ? 'bg-emerald-600 text-white' 
-              : 'bg-[#004d40] hover:bg-[#003830] text-white border border-amber-400/50 shadow-amber-400/20'
+            'w-full py-4 rounded-xl font-black uppercase text-sm shadow-2xl transition flex items-center justify-center gap-2 relative z-10',
+            addedNotice ? 'bg-emerald-600 text-white' : 'bg-slate-900 hover:bg-black text-white'
           ]">
           <template v-if="addedNotice">
-            <Check class="w-4 h-4 text-white" /> Đã Thêm Vào Giỏ Báo Giá Thành Công!
+            <Check class="w-5 h-5" /> Đã thêm vào Giỏ Báo Giá!
           </template>
           <template v-else>
-            <PlusCircle class="w-4 h-4 text-amber-400" /> Thêm Khối Lượng Này Vào Đơn Báo Giá
+            <PlusCircle class="w-5 h-5 text-teal-300" /> Thêm kết quả vào Giỏ Báo Giá
           </template>
         </button>
       </div>
+
     </div>
   </div>
 </template>
